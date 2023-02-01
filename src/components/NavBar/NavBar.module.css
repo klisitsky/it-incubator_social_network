@@ -1,0 +1,16 @@
+.nav {
+  grid-area: n;
+  background-color: cadetblue;
+}
+
+.item {
+  list-style-type: none;
+}
+
+.link {
+  color: white;
+}
+
+.link.active {
+  color: hotpink;
+}
