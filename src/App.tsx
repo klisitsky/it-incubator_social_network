@@ -3,7 +3,11 @@ import './App.css';
 import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
 import Profile from "./components/Profile/Profile";
-
+import Dialogs from "./components/Dialogs/Dialogs";
+import {BrowserRouter, Route} from "react-router-dom";
+import Music from "./components/Music/Music";
+import News from "./components/News/News";
+import Settings from "./components/Settings/Settings";
 let mainLogo = 'https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Facebook_f_logo_%282021%29.svg/1024px-Facebook_f_logo_%282021%29.svg.png'
 
 let mainBackgroundProfile = "https://venngage-wordpress.s3.amazonaws.com/uploads/2018/08/What_is_an_Infographic_Blog_Header.png"
@@ -35,13 +39,24 @@ const UserPosts = [
 
 const App = () => {
   return (
-    <div className="app-wrapper">
-    <div className="container">
-      <Header mainLogo={mainLogo}/>
-      <NavBar/>
-      <Profile mainBackgroundProfile={mainBackgroundProfile} posts={UserPosts}/>
-    </div>
-  </div>
+    <BrowserRouter>
+      <div className="app-wrapper">
+        <div className="container">
+          <Header mainLogo={mainLogo}/>
+          <NavBar/>
+          <div className="container__content">
+            <Route path="/dialogs/" component={Dialogs} />
+            <Route path="/profile/" render={() => <Profile
+              mainBackgroundProfile={mainBackgroundProfile}
+              posts={UserPosts}/>}
+              />
+            <Route path="/music" component={Music}/>
+            <Route path="/news" component={News}/>
+            <Route path="/settings" component={Settings}/>
+          </div>
+        </div>
+      </div>
+    </BrowserRouter>
   );
 }
 

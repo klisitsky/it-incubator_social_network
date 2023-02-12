@@ -15,17 +15,30 @@ type PostType = {
   message: string
 }
 
+type ProfileInfoType = {
+  bg: string
+}
+
+const ProfileInfo = (props:ProfileInfoType) => {
+  return (
+    <>
+      <div>
+        <img src={props.bg} alt="img"/>
+      </div>
+      <div className={classes.content}>Ava + desc</div>
+    </>
+  )
+}
+
+
+
 const Profile: React.FC<ProfilePropsType> = (props) => {
-  return <div className={classes.content}>
-    <div>
-      <img src={props.mainBackgroundProfile}
-           alt="img"/>
-    </div>
-    <div className={classes.content}>Ava + desc</div>
-    <div className={classes.content}>My posts</div>
-    <div className={classes.content}>New posts</div>
-    <MyPosts posts={props.posts}/>
-  </div>
+  return (
+      <div>
+        <ProfileInfo bg={props.mainBackgroundProfile}/>
+        <MyPosts posts={props.posts}/>
+      </div>
+    )
 }
 
 export default Profile

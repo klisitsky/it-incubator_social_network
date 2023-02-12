@@ -3,14 +3,18 @@
   background-color: cadetblue;
 }
 
+.listList{}
+
 .item {
   list-style-type: none;
 }
 
-.link {
+.item a {
+  text-decoration: none;
+  font-size: 24px;
   color: white;
 }
 
-.link.active {
+.item a.active {
   color: hotpink;
 }

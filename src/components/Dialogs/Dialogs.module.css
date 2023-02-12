@@ -1,0 +1,12 @@
+.messagesPage {
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+}
+
+.message {
+  display: block;
+}
+
+.dialog {
+  display: block;
+}
