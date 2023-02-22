@@ -2,24 +2,27 @@ import React from "react";
 import classes from './NavBar.module.css';
 import {NavLink} from "react-router-dom";
 
-const NavBar = () => {
+export type NavBarPropsType = {
+  navbar: Array<NavBarType>
+}
+
+export type NavBarType = {
+  id: string
+  name: string
+  pageUrl: string
+}
+
+const NavBar: React.FC<NavBarPropsType> = (props) => {
+
+  const renderedNavBar = props.navbar.map(navItem => {
+    return <li key={navItem.id} className={classes.item}>
+      <NavLink to={navItem.pageUrl} activeClassName={classes.active}>{navItem.name}</NavLink>
+    </li>
+  })
+
   return <nav className={classes.nav}>
     <ul className={classes.listList}>
-      <li className={classes.item}>
-        <NavLink to="/profile" activeClassName={classes.active}>Profile</NavLink>
-      </li>
-      <li className={classes.item}>
-        <NavLink to="/dialogs" activeClassName={classes.active}>Messages</NavLink>
-      </li>
-      <li className={classes.item}> 
-        <NavLink to="/news" activeClassName={classes.active}>News</NavLink>
-      </li>
-      <li className={classes.item}>
-        <NavLink to="/music" activeClassName={classes.active}>Music</NavLink>
-      </li>
-      <li className={classes.item}>
-        <NavLink to="/settings" activeClassName={classes.active}>Setting</NavLink>
-      </li>
+      {renderedNavBar}
     </ul>
   </nav>
 }

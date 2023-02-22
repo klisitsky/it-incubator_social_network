@@ -7,6 +7,7 @@ type HeaderPropsType = {
 }
 
 const Header: React.FC<HeaderPropsType> = (props) => {
+
   return <header className={classes.header}>
     <div className={classes.logo}>
       <img className={classes.icon} src={props.mainLogo} alt="logo"/>

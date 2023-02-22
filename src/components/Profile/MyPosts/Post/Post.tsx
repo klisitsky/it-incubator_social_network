@@ -2,11 +2,11 @@ import React from "react";
 import classes from './Post.module.css';
 
 
-type PostPropsType = {
+export type PostPropsType = {
   post: PostType
 }
 
-type PostType = {
+export type PostType = {
   id: number
   photoUrl: string
   name: string

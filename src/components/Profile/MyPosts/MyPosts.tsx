@@ -16,9 +16,11 @@ type PostType = {
 
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
+  const renderedPosts = props.posts.map(obj => <Post post={obj}/>)
+
   return (
       <div className={classes.posts}>
-        {props.posts.map(obj => <Post post={obj}/>)}
+        {renderedPosts}
       </div>
       )
 }
