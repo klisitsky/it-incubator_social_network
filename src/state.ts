@@ -9,6 +9,7 @@ export const state = {
   profilePage: {
     mainLogoSite: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Facebook_f_logo_%282021%29.svg/1024px-Facebook_f_logo_%282021%29.svg.png',
     mainBackgroundProfile: "https://venngage-wordpress.s3.amazonaws.com/uploads/2018/08/What_is_an_Infographic_Blog_Header.png",
+    messageInTextArea: '',
     userPosts: [{
       id: v1(),
       photoUrl: `https://cpad.ask.fm/a4e/d9461/7d98/4b6a/b9c6/f598b6ac16f1/large/67038.jpg`,
@@ -51,6 +52,7 @@ export type StateType = {
   profilePage: {
     mainLogoSite: string
     mainBackgroundProfile: string
+    messageInTextArea: string
     userPosts: Array<PostType>
   }
   dialogsPage: {
@@ -61,7 +63,7 @@ export type StateType = {
 }
 
 export const addPost = (postMessage: string) => {
-  const newPost = {
+  const newPost: PostType = {
     id: v1(),
     photoUrl: `https://cpad.ask.fm/a4e/d9461/7d98/4b6a/b9c6/f598b6ac16f1/large/67038.jpg`,
     name: "Петя",
@@ -69,5 +71,10 @@ export const addPost = (postMessage: string) => {
     message: postMessage
   }
   state.profilePage.userPosts.push(newPost);
+  renderAll(state);
+}
+
+export const changeMessageText = (newMessage:string) => {
+  state.profilePage.messageInTextArea = newMessage;
   renderAll(state);
 }

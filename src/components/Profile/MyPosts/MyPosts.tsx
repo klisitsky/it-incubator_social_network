@@ -1,30 +1,32 @@
-import React, {RefObject} from "react";
+import React, {ChangeEvent} from "react";
 import classes from './MyPosts.module.css';
 import Post, {PostType} from "./Post/Post";
 
 type MyPostsPropsType = {
   posts: Array<PostType>
   addPost: (postMessage:string) => void
+  changeMessageText: (newMessage: string) => void
+  messageInTextArea: string
 }
 
 
 const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
-  let fieldAddPost: RefObject<HTMLTextAreaElement> = React.createRef();
+  const AddPostHandler = () => {
+    if (props.messageInTextArea)
+      props.addPost(props.messageInTextArea)
+  }
 
-  const AddPost = () => {
-    if (fieldAddPost.current?.value) {
-      props.addPost(fieldAddPost.current?.value)
-    }
-
+  const onChangeTextAreaHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    props.changeMessageText(event.currentTarget.value)
   }
 
   const renderedPosts = props.posts.map(obj => <Post post={obj}/>)
 
   return (
       <div className={classes.posts}>
-        <textarea ref={fieldAddPost}/>
-        <button onClick={AddPost}>Add</button>
+        <textarea onChange={onChangeTextAreaHandler}/>
+        <button onClick={AddPostHandler}>Add</button>
         {renderedPosts}
       </div>
       )

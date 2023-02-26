@@ -13,14 +13,14 @@ import {StateType} from "./state";
 export type AppPropsType = {
   state: StateType
   addPost: (postMessage:string) => void
+  changeMessageText: (newMessage: string) => void
 }
 
 export const App: React.FC<AppPropsType> = (props) => {
 
-  const {mainLogoSite, mainBackgroundProfile, userPosts} = props.state.profilePage
+  const {mainLogoSite, mainBackgroundProfile, userPosts, messageInTextArea} = props.state.profilePage
   const {dialogsData, messagesData} = props.state.dialogsPage
 
-  debugger;
   return (
       <div className="app-wrapper">
         <div className="container">
@@ -34,7 +34,9 @@ export const App: React.FC<AppPropsType> = (props) => {
             <Route path="/profile/" render={() => <Profile
               mainBackgroundProfile={mainBackgroundProfile}
               posts={userPosts}
-              addPost={props.addPost}/>}/>
+              addPost={props.addPost}
+              messageInTextArea={messageInTextArea}
+              changeMessageText={props.changeMessageText}/>}/>
             <Route path="/music" component={Music}/>
             <Route path="/news" component={News}/>
             <Route path="/settings" component={Settings}/>

@@ -7,8 +7,22 @@ type ProfilePropsType = {
   mainBackgroundProfile: string
   posts: Array<PostType>
   addPost: (postMessage:string) => void
+  messageInTextArea: string
+  changeMessageText: (newMessage: string) => void
 }
 
+
+const Profile: React.FC<ProfilePropsType> = (props) => {
+  return (
+      <div>
+        <ProfileInfo bg={props.mainBackgroundProfile}/>
+        <MyPosts posts={props.posts}
+                 addPost={props.addPost}
+                 changeMessageText={props.changeMessageText}
+                 messageInTextArea={props.messageInTextArea}/>
+      </div>
+    )
+}
 
 type ProfileInfoType = {
   bg: string
@@ -26,14 +40,5 @@ const ProfileInfo = (props:ProfileInfoType) => {
 }
 
 
-
-const Profile: React.FC<ProfilePropsType> = (props) => {
-  return (
-      <div>
-        <ProfileInfo bg={props.mainBackgroundProfile}/>
-        <MyPosts posts={props.posts} addPost={props.addPost}/>
-      </div>
-    )
-}
 
 export default Profile
