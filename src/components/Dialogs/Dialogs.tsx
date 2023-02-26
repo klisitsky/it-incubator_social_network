@@ -1,4 +1,4 @@
-import React from "react";
+import React, {RefObject} from "react";
 import s from './Dialogs.module.css'
 import {Dialog, DialogType} from "./Dialog/Dialog";
 import {Message, MessageType} from "./Message/Message";
@@ -19,6 +19,11 @@ const Dialogs: React.FC<DialogsPropsType> = ({dialogsData, messagesData}) => {
     return <Message text={messageEl.text} id={messageEl.id}/>
   })
 
+  const fieldNewMessage: RefObject<HTMLTextAreaElement> = React.createRef();
+
+  const addMessage = () => {
+    alert(fieldNewMessage.current?.value)
+  }
 
   return (
     <div className={s.messagesPage}>
@@ -28,6 +33,8 @@ const Dialogs: React.FC<DialogsPropsType> = ({dialogsData, messagesData}) => {
       <div className={s.messages}>
         {renderedMessages}
       </div>
+      <textarea ref={fieldNewMessage}></textarea>
+      <button style={{width: '40px', height: '20px'}} onClick={addMessage}>send</button>
     </div>
   )
 }

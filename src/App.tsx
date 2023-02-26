@@ -1,30 +1,18 @@
 import React from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
-import NavBar, {NavBarType} from "./components/NavBar/NavBar";
+import NavBar from "./components/NavBar/NavBar";
 import Profile from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
-import {PostType} from "./components/Profile/MyPosts/Post/Post";
-import {DialogType} from "./components/Dialogs/Dialog/Dialog";
-import {MessageType} from "./components/Dialogs/Message/Message";
+import {StateType} from "./state";
 
 export type AppPropsType = {
-  state: {
-    profilePage: {
-      mainLogoSite: string
-      mainBackgroundProfile: string
-      userPosts: Array<PostType>
-    }
-    dialogsPage: {
-      dialogsData: Array<DialogType>
-      messagesData: Array<MessageType>
-    }
-    navbar: Array<NavBarType>
-  }
+  state: StateType
+  addPost: (postMessage:string) => void
 }
 
 export const App: React.FC<AppPropsType> = (props) => {
@@ -45,7 +33,8 @@ export const App: React.FC<AppPropsType> = (props) => {
             />} />
             <Route path="/profile/" render={() => <Profile
               mainBackgroundProfile={mainBackgroundProfile}
-              posts={userPosts}/>}/>
+              posts={userPosts}
+              addPost={props.addPost}/>}/>
             <Route path="/music" component={Music}/>
             <Route path="/news" component={News}/>
             <Route path="/settings" component={Settings}/>

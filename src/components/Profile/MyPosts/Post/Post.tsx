@@ -7,7 +7,7 @@ export type PostPropsType = {
 }
 
 export type PostType = {
-  id: number
+  id: string
   photoUrl: string
   name: string
   surName: string

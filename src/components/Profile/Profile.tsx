@@ -1,19 +1,14 @@
 import React from "react";
 import classes from './Profile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
+import {PostType} from "./MyPosts/Post/Post";
 
 type ProfilePropsType = {
   mainBackgroundProfile: string
   posts: Array<PostType>
+  addPost: (postMessage:string) => void
 }
 
-type PostType = {
-  id: number
-  photoUrl: string
-  name: string
-  surName: string
-  message: string
-}
 
 type ProfileInfoType = {
   bg: string
@@ -36,7 +31,7 @@ const Profile: React.FC<ProfilePropsType> = (props) => {
   return (
       <div>
         <ProfileInfo bg={props.mainBackgroundProfile}/>
-        <MyPosts posts={props.posts}/>
+        <MyPosts posts={props.posts} addPost={props.addPost}/>
       </div>
     )
 }
