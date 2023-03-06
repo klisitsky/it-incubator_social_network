@@ -15,17 +15,18 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
   const AddPostHandler = () => {
     if (props.messageInTextArea)
       props.addPost(props.messageInTextArea)
+      props.changeMessageText('')
   }
 
   const onChangeTextAreaHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
     props.changeMessageText(event.currentTarget.value)
   }
 
-  const renderedPosts = props.posts.map(obj => <Post post={obj}/>)
+  const renderedPosts = props.posts.map(obj => <Post key={obj.id} post={obj}/>)
 
   return (
       <div className={classes.posts}>
-        <textarea onChange={onChangeTextAreaHandler}/>
+        <textarea value={props.messageInTextArea} onChange={onChangeTextAreaHandler}/>
         <button onClick={AddPostHandler}>Add</button>
         {renderedPosts}
       </div>

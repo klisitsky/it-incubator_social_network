@@ -8,18 +8,18 @@ import {Route} from "react-router-dom";
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
-import {StateType} from "./state";
+import {StateType, StorePropsType} from "./state";
 
 export type AppPropsType = {
   state: StateType
-  addPost: (postMessage:string) => void
-  changeMessageText: (newMessage: string) => void
+  store: StorePropsType
 }
 
 export const App: React.FC<AppPropsType> = (props) => {
 
   const {mainLogoSite, mainBackgroundProfile, userPosts, messageInTextArea} = props.state.profilePage
   const {dialogsData, messagesData} = props.state.dialogsPage
+  const {addPost, changeMessageText} = props.store
 
   return (
       <div className="app-wrapper">
@@ -27,16 +27,16 @@ export const App: React.FC<AppPropsType> = (props) => {
           <Header mainLogo={mainLogoSite}/>
           <NavBar navbar={props.state.navbar}/>
           <div className="container__content">
-            <Route path="/dialogs/" render={() => <Dialogs
-              dialogsData={dialogsData}
-              messagesData={messagesData}
+            <Route path="/dialogs/" render={() =>
+              <Dialogs dialogsData={dialogsData}
+                       messagesData={messagesData}
             />} />
-            <Route path="/profile/" render={() => <Profile
-              mainBackgroundProfile={mainBackgroundProfile}
-              posts={userPosts}
-              addPost={props.addPost}
-              messageInTextArea={messageInTextArea}
-              changeMessageText={props.changeMessageText}/>}/>
+            <Route path="/profile/" render={() =>
+              <Profile mainBackgroundProfile={mainBackgroundProfile}
+                       posts={userPosts}
+                       addPost={addPost.bind(props.store)}
+                       messageInTextArea={messageInTextArea}
+                       changeMessageText={changeMessageText.bind(props.store)}/>}/>
             <Route path="/music" component={Music}/>
             <Route path="/news" component={News}/>
             <Route path="/settings" component={Settings}/>

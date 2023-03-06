@@ -12,11 +12,12 @@ type DialogsPropsType = {
 const Dialogs: React.FC<DialogsPropsType> = ({dialogsData, messagesData}) => {
 
   const renderedDialogs = dialogsData.map(dialogEl => {
-    return <Dialog name={dialogEl.name} id={dialogEl.id}/>
+
+    return <Dialog key={dialogEl.id} name={dialogEl.name} id={dialogEl.id}/>
   })
 
   const renderedMessages = messagesData.map(messageEl => {
-    return <Message text={messageEl.text} id={messageEl.id}/>
+    return <Message key={messageEl.id} text={messageEl.text} id={messageEl.id}/>
   })
 
   const fieldNewMessage: RefObject<HTMLTextAreaElement> = React.createRef();
