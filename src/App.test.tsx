@@ -8,7 +8,7 @@ import {store} from "./state";
 
 test('renders learn react link', () => {
   render(<App state={store.getState()}
-              store={store}
+              dispatch={store.dispatch.bind(store)}
   />);
   const linkElement = screen.getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();

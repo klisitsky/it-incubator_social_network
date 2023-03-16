@@ -2,7 +2,7 @@ import s from "../Dialogs.module.css";
 import React from "react";
 
 export type MessageType = {
-  id: number
+  id: string
   text: string
 }
 

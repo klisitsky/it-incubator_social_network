@@ -2,13 +2,13 @@ import React from "react";
 import classes from './Profile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
 import {PostType} from "./MyPosts/Post/Post";
+import {DispatchType} from "../../state";
 
 type ProfilePropsType = {
   mainBackgroundProfile: string
   posts: Array<PostType>
-  addPost: (postMessage:string) => void
-  messageInTextArea: string
-  changeMessageText: (newMessage: string) => void
+  messageInTextAreaPost: string
+  dispatch: (action: DispatchType) => void
 }
 
 
@@ -17,9 +17,8 @@ const Profile: React.FC<ProfilePropsType> = (props) => {
       <div>
         <ProfileInfo bg={props.mainBackgroundProfile}/>
         <MyPosts posts={props.posts}
-                 addPost={props.addPost}
-                 changeMessageText={props.changeMessageText}
-                 messageInTextArea={props.messageInTextArea}/>
+                 dispatch={props.dispatch}
+                 messageInTextAreaPost={props.messageInTextAreaPost}/>
       </div>
     )
 }

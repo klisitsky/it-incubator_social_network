@@ -1,29 +1,35 @@
-import React, {RefObject} from "react";
+import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import {Dialog, DialogType} from "./Dialog/Dialog";
 import {Message, MessageType} from "./Message/Message";
+import {changeMessageTextDialogCreator, DispatchType, sendMessageCreator} from "../../state";
 
 
 type DialogsPropsType = {
   dialogsData: Array<DialogType>
   messagesData: Array<MessageType>
+  messageInTextAreaDialogs: string
+  dispatch: (action: DispatchType) => void
 }
 
-const Dialogs: React.FC<DialogsPropsType> = ({dialogsData, messagesData}) => {
+const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
-  const renderedDialogs = dialogsData.map(dialogEl => {
+  const renderedDialogs = props.dialogsData.map(dialogEl => {
 
     return <Dialog key={dialogEl.id} name={dialogEl.name} id={dialogEl.id}/>
   })
 
-  const renderedMessages = messagesData.map(messageEl => {
+  const renderedMessages = props.messagesData.map(messageEl => {
     return <Message key={messageEl.id} text={messageEl.text} id={messageEl.id}/>
   })
 
-  const fieldNewMessage: RefObject<HTMLTextAreaElement> = React.createRef();
-
-  const addMessage = () => {
-    alert(fieldNewMessage.current?.value)
+  const onChangeTextArea = (event:ChangeEvent<HTMLTextAreaElement>) => {
+    const action = changeMessageTextDialogCreator(event.currentTarget.value)
+    props.dispatch(action)
+  }
+  const sendMessage = () => {
+    const action = (sendMessageCreator())
+    props.dispatch(action)
   }
 
   return (
@@ -33,9 +39,14 @@ const Dialogs: React.FC<DialogsPropsType> = ({dialogsData, messagesData}) => {
       </div>
       <div className={s.messages}>
         {renderedMessages}
+        <div className={s.messageTextBody}>
+          <textarea value={props.messageInTextAreaDialogs}
+                    onChange={onChangeTextArea}>
+          </textarea>
+          <button style={{width: '40px', height: '20px'}} onClick={sendMessage}>send</button>
+        </div>
       </div>
-      <textarea ref={fieldNewMessage}></textarea>
-      <button style={{width: '40px', height: '20px'}} onClick={addMessage}>send</button>
+
     </div>
   )
 }
