@@ -2,13 +2,13 @@ import React from "react";
 import classes from './Profile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
 import {PostType} from "./MyPosts/Post/Post";
-import {DispatchType} from "../../state";
+import {ActionsTypes} from "../../redux/store";
 
 type ProfilePropsType = {
   mainBackgroundProfile: string
   posts: Array<PostType>
   messageInTextAreaPost: string
-  dispatch: (action: DispatchType) => void
+  dispatch: (action: ActionsTypes) => void
 }
 
 

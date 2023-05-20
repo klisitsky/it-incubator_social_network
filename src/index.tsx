@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
 import React from "react";
-import {StorePropsType, store} from "./state";
+import {StorePropsType, store} from "./redux/store";
 
 
 export const renderAll = (store: StorePropsType) => {
@@ -16,4 +16,5 @@ export const renderAll = (store: StorePropsType) => {
 }
 
 renderAll(store)
+
 store.subscribe(() => renderAll(store))

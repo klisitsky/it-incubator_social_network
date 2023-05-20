@@ -2,14 +2,15 @@ import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import {Dialog, DialogType} from "./Dialog/Dialog";
 import {Message, MessageType} from "./Message/Message";
-import {changeMessageTextDialogCreator, DispatchType, sendMessageCreator} from "../../state";
+import {ActionsTypes} from "../../redux/store";
+import {changeMessageTextDialogCreator, sendMessageCreator} from "../../redux/reducerDialogs";
 
 
 type DialogsPropsType = {
   dialogsData: Array<DialogType>
   messagesData: Array<MessageType>
   messageInTextAreaDialogs: string
-  dispatch: (action: DispatchType) => void
+  dispatch: (action: ActionsTypes) => void
 }
 
 const Dialogs: React.FC<DialogsPropsType> = (props) => {
@@ -18,7 +19,6 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
     return <Dialog key={dialogEl.id} name={dialogEl.name} id={dialogEl.id}/>
   })
-
   const renderedMessages = props.messagesData.map(messageEl => {
     return <Message key={messageEl.id} text={messageEl.text} id={messageEl.id}/>
   })
@@ -28,7 +28,7 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
     props.dispatch(action)
   }
   const sendMessage = () => {
-    const action = (sendMessageCreator())
+    const action = sendMessageCreator()
     props.dispatch(action)
   }
 
@@ -46,7 +46,6 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
           <button style={{width: '40px', height: '20px'}} onClick={sendMessage}>send</button>
         </div>
       </div>
-
     </div>
   )
 }
