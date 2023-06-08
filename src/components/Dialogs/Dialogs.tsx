@@ -2,15 +2,14 @@ import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import {Dialog, DialogType} from "./Dialog/Dialog";
 import {Message, MessageType} from "./Message/Message";
-import {ActionsTypes} from "../../redux/store";
-import {changeMessageTextDialogCreator, sendMessageCreator} from "../../redux/reducerDialogs";
 
 
 type DialogsPropsType = {
   dialogsData: Array<DialogType>
   messagesData: Array<MessageType>
   messageInTextAreaDialogs: string
-  dispatch: (action: ActionsTypes) => void
+  changeTextArea: (value:string) => void
+  sendMessage: () => void
 }
 
 const Dialogs: React.FC<DialogsPropsType> = (props) => {
@@ -23,13 +22,11 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
     return <Message key={messageEl.id} text={messageEl.text} id={messageEl.id}/>
   })
 
-  const onChangeTextArea = (event:ChangeEvent<HTMLTextAreaElement>) => {
-    const action = changeMessageTextDialogCreator(event.currentTarget.value)
-    props.dispatch(action)
+  const onTextAreaChangeHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
+    props.changeTextArea(event.currentTarget.value)
   }
-  const sendMessage = () => {
-    const action = sendMessageCreator()
-    props.dispatch(action)
+  const onSendMessageCliclHanler = () => {
+    props.sendMessage()
   }
 
   return (
@@ -41,9 +38,9 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
         {renderedMessages}
         <div className={s.messageTextBody}>
           <textarea value={props.messageInTextAreaDialogs}
-                    onChange={onChangeTextArea}>
+                    onChange={onTextAreaChangeHandler}>
           </textarea>
-          <button style={{width: '40px', height: '20px'}} onClick={sendMessage}>send</button>
+          <button style={{width: '40px', height: '20px'}} onClick={onSendMessageCliclHanler}>send</button>
         </div>
       </div>
     </div>

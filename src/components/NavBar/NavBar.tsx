@@ -3,7 +3,7 @@ import classes from './NavBar.module.css';
 import {NavLink} from "react-router-dom";
 
 export type NavBarPropsType = {
-  navbar: Array<NavBarType>
+  navItems: Array<NavBarType>
 }
 
 export type NavBarType = {
@@ -14,7 +14,7 @@ export type NavBarType = {
 
 const NavBar: React.FC<NavBarPropsType> = (props) => {
 
-  const renderedNavBar = props.navbar.map(navItem => {
+  const renderedNavBar = props.navItems.map(navItem => {
     return <li key={navItem.id} className={classes.item}>
       <NavLink to={navItem.pageUrl} activeClassName={classes.active}>{navItem.name}</NavLink>
     </li>

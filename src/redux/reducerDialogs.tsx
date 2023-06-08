@@ -1,6 +1,7 @@
-import {ActionsTypes, dialogsPageType} from "./store";
+import {ActionsTypes} from "./redux-store";
 import {v1} from "uuid";
 import {MessageType} from "../components/Dialogs/Message/Message";
+import {DialogType} from "../components/Dialogs/Dialog/Dialog";
 
 const SEND_MESSAGE = 'sendMessage'
 const CHANGE_MESSAGE_TEXT_DIALOG = 'changeMessageTextDialog'
@@ -8,7 +9,29 @@ const CHANGE_MESSAGE_TEXT_DIALOG = 'changeMessageTextDialog'
 export type DialogsActionsTypes = ReturnType<typeof sendMessageCreator> |
                                   ReturnType<typeof changeMessageTextDialogCreator>
 
-const reducerDialogs = (state:dialogsPageType, action:ActionsTypes) => {
+export type dialogsPageType = {
+  dialogsData: Array<DialogType>
+  messagesData: Array<MessageType>
+  messageInTextAreaDialogs: string
+}
+
+const initialState: dialogsPageType = {
+  dialogsData: [
+    {id: 1, name: 'Артём'},
+    {id: 2, name: 'Света'},
+    {id: 3, name: 'Марина'},
+    {id: 4, name: 'Катя'},
+    {id: 5, name: 'Паша'}
+  ],
+  messagesData: [
+    {id: v1(), text: 'Хэй, чувак'},
+    {id: v1(), text: 'Как ты там?'},
+    {id: v1(), text: 'Давно не виделись'}
+  ],
+  messageInTextAreaDialogs: ''
+}
+
+const reducerDialogs = (state:dialogsPageType = initialState, action:ActionsTypes) => {
   switch (action.type) {
     case CHANGE_MESSAGE_TEXT_DIALOG:
       state.messageInTextAreaDialogs = action.messageInTextAreaDialogs ? action.messageInTextAreaDialogs : ''
