@@ -34,17 +34,18 @@ const initialState: dialogsPageType = {
 const reducerDialogs = (state:dialogsPageType = initialState, action:ActionsTypes) => {
   switch (action.type) {
     case CHANGE_MESSAGE_TEXT_DIALOG:
-      state.messageInTextAreaDialogs = action.messageInTextAreaDialogs ? action.messageInTextAreaDialogs : ''
-      return state
+      return {...state, messageInTextAreaDialogs: action.messageInTextAreaDialogs ? action.messageInTextAreaDialogs : ''}
     case SEND_MESSAGE:
       const newMessageId: string = v1()
       const newMessage: MessageType = {
         id: newMessageId,
         text: state.messageInTextAreaDialogs
       }
-      state.messagesData.push(newMessage)
-      state.messageInTextAreaDialogs = ''
-      return state
+      return {
+        ...state,
+        messagesData: [...state.messagesData, newMessage],
+        messageInTextAreaDialogs: ''
+      }
     default:
       return state
   }

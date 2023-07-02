@@ -4,12 +4,9 @@ import {BrowserRouter} from "react-router-dom";
 import App from "./App";
 import React from "react";
 import store from "./redux/redux-store";
-import {Provider} from "./StoreContext";
+import {Provider} from "react-redux";
 
 
-
-
-export const renderAll = () => {
   ReactDOM.render(
     <BrowserRouter>
       <Provider store={store}>
@@ -18,8 +15,3 @@ export const renderAll = () => {
     </BrowserRouter>,
     document.getElementById('root')
   );
-}
-
-renderAll()
-
-store.subscribe(renderAll)

@@ -1,36 +1,44 @@
 import React from "react";
 import {changeMessageTextDialogCreator, sendMessageCreator} from "../../redux/reducerDialogs";
 import Dialogs from "./Dialogs";
-import StoreContext from "../../StoreContext";
+import {connect} from "react-redux";
+import {DialogType} from "./Dialog/Dialog";
+import {MessageType} from "./Message/Message";
+import {DispatchType, RootStateType} from "../../redux/redux-store";
 
 
-
-
-const DialogsContainer = () => {
-  return (
-    <StoreContext.Consumer>
-      {(store) => {
-        const state = store.getState()
-
-        const changeTextArea = (value:string) => {
-          const action = changeMessageTextDialogCreator(value)
-          store.dispatch(action)
-        }
-
-        const sendMessage = () => {
-          const action = sendMessageCreator()
-          store.dispatch(action)
-        }
-
-       return <Dialogs dialogsData={state.dialogsPage.dialogsData}
-                       messagesData={state.dialogsPage.messagesData}
-                       messageInTextAreaDialogs={state.dialogsPage.messageInTextAreaDialogs}
-                       changeTextArea={changeTextArea}
-                       sendMessage={sendMessage}/>
-      }}
-
-  </StoreContext.Consumer>
-  )
+export type StatePropsType = {
+  dialogsData: Array<DialogType>
+  messagesData: Array<MessageType>
+  messageInTextAreaDialogs: string
 }
 
-export default DialogsContainer
+const mapStateToProps = (state: RootStateType):StatePropsType => {
+  return {
+    dialogsData: state.dialogsPage.dialogsData,
+    messagesData: state.dialogsPage.messagesData,
+    messageInTextAreaDialogs: state.dialogsPage.messageInTextAreaDialogs
+  }
+}
+
+type DispatchPropsType = {
+  changeTextArea: (value: string) => void
+  sendMessage: () => void
+}
+
+const mapDispatchToProps = (dispatch: DispatchType):DispatchPropsType => {
+  return {
+    changeTextArea(value: string) {
+      const action = changeMessageTextDialogCreator(value)
+      dispatch(action)
+    },
+    sendMessage() {
+      const action = sendMessageCreator()
+      dispatch(action)
+    }
+  }
+}
+
+const SuperDialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+
+export default React.memo(SuperDialogsContainer)

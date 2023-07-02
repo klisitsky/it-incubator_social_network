@@ -1,13 +1,26 @@
 import React from "react";
-import StoreContext from "../../StoreContext";
 import Header from "./Header";
+import {connect} from "react-redux";
+import {RootStateType} from "../../redux/redux-store";
 
 
-const HeaderContainer = () => {
+// const HeaderContainer = () => {
+//
+//   return <StoreContext.Consumer>
+//     {(store) => <Header mainLogo={store.getState().profilePage.mainLogoSite}/>}
+//   </StoreContext.Consumer>
+// }
 
-  return <StoreContext.Consumer>
-    {(store) => <Header mainLogo={store.getState().profilePage.mainLogoSite}/>}
-  </StoreContext.Consumer>
+export type StatePropsType = {
+  mainLogo: string
 }
 
-export default HeaderContainer
+const mapStateToProps = (state: RootStateType):StatePropsType => {
+  return {
+    mainLogo: state.profilePage.mainLogoSite,
+  }
+}
+
+const HeaderContainer = connect(mapStateToProps)(Header)
+
+export default React.memo(HeaderContainer)

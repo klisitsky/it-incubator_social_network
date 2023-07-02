@@ -50,8 +50,7 @@ const initialState: profilePageType = {
 const reducerProfile = (state:profilePageType = initialState, action:ActionsTypes) => {
   switch (action.type) {
     case CHANGE_MESSAGE_TEXT_POST:
-      state.messageInTextAreaPost = action.messageInTextAreaPost ? action.messageInTextAreaPost : ''
-      return state
+      return {...state, messageInTextAreaPost: action.messageInTextAreaPost ? action.messageInTextAreaPost : ''}
     case ADD_POST:
       const newPost: PostType = {
         id: v1(),
@@ -60,9 +59,11 @@ const reducerProfile = (state:profilePageType = initialState, action:ActionsType
         surName: 'Иванов',
         message: state.messageInTextAreaPost
       }
-      state.userPosts.push(newPost);
-      state.messageInTextAreaPost = ''
-      return state
+      return {
+        ...state,
+        userPosts: [...state.userPosts, newPost],
+        messageInTextAreaPost: ''
+      }
     default:
       return state
   }
