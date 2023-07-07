@@ -2,7 +2,7 @@ import {combineReducers, createStore} from "redux";
 import reducerProfile, {ProfileActionsTypes} from "./reducerProfile";
 import reducerDialogs, {DialogsActionsTypes} from "./reducerDialogs";
 import reducerNavbar from "./reducerNavbar";
-import UsersSearchReducer, {UsersSearchActionsTypes} from "./UsersSearchReducer";
+import ReducerUsersSearch, {UsersSearchActionsTypes} from "./reducerUsersSearch";
 
 
 export type ActionsTypes = ProfileActionsTypes | DialogsActionsTypes | UsersSearchActionsTypes
@@ -13,7 +13,7 @@ const reducers = combineReducers({
   profilePage: reducerProfile,
   dialogsPage: reducerDialogs,
   navbar: reducerNavbar,
-  usersSearchPage: UsersSearchReducer
+  usersSearchPage: ReducerUsersSearch
 })
 
 let store = createStore(reducers)

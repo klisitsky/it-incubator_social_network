@@ -1,8 +1,8 @@
 import {ActionsTypes} from "./redux-store";
 
-
 const FOLLOW = "FOLLOW"
 const SET_USERS = "SET-USERS"
+
 
 export type UsersSearchActionsTypes = ReturnType<typeof followAC> |
                                       ReturnType<typeof setUsersAC>
@@ -18,6 +18,8 @@ export type UserType = {
   },
   followed: boolean
 }
+
+
 
 const initialState:Array<UserType> = [
   {
@@ -55,12 +57,12 @@ const initialState:Array<UserType> = [
   }
 ]
 
-const UsersSearchReducer = (state:Array<UserType> = initialState, action:ActionsTypes) => {
+const ReducerUsersSearch = (state:Array<UserType> = initialState, action:ActionsTypes) => {
   switch (action.type) {
     case FOLLOW:
       return state.map(u => u.id === action.payload.userId ? {...u, followed: !u.followed} : u)
     case SET_USERS:
-      return state
+      return action.payload.users
     default:
       return state
   }
@@ -82,4 +84,4 @@ export const setUsersAC = (users:Array<UserType>) => ({
 } as const)
 
 
-export default UsersSearchReducer;
+export default ReducerUsersSearch;

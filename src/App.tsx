@@ -8,7 +8,7 @@ import Settings from "./components/Settings/Settings";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import NavBarContainer from "./components/NavBar/NavBarContainer";
-import UsersSearch from "./components/UsersSearch/UsersSearch";
+import UsersSearchContainer from "./components/UsersSearch/UsersSearchContainer";
 
 
 
@@ -25,7 +25,7 @@ export const App = () => {
             <Route path="/music" component={Music}/>
             <Route path="/news" component={News}/>
             <Route path="/settings" component={Settings}/>
-            <Route path="/search" component={UsersSearch}/>
+            <Route path="/search" component={UsersSearchContainer}/>
           </div>
         </div>
       </div>

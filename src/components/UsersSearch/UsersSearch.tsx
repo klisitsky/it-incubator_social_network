@@ -1,5 +1,6 @@
 import React from 'react';
-import {UserType} from "../../redux/UsersSearchReducer";
+import {UserType} from "../../redux/reducerUsersSearch";
+import axios from "axios";
 
 type UsersSearchPropsType = {
   users: Array<UserType>
@@ -8,10 +9,13 @@ type UsersSearchPropsType = {
 }
 
 const UsersSearch = (props:UsersSearchPropsType) => {
-
-  // useMemo(() => {
-  //   props.setUsers(props.users)
-  // }, [props.users])
+  console.log(props.users)
+  debugger
+  if (props.users.length === 0) {
+    axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+      props.setUsers(response.data.items)
+    })
+  }
 
   return (<>
     <h1>Users</h1>

@@ -1,18 +1,18 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {DispatchType, RootStateType} from "../../redux/redux-store";
-import {followAC, setUsersAC, UserType} from "../../redux/UsersSearchReducer";
-import UsersSearch from "./UsersSearch";
+import {followAC, setUsersAC, UserType} from "../../redux/reducerUsersSearch";
+import UsersSearchC from "./UsersSearchC";
 
 
 
 export type StatePropsType = {
-  usersSearchPage: Array<UserType>
+  users: Array<UserType>
 }
 
 const mapStateToProps = (state: RootStateType):StatePropsType => {
   return {
-    usersSearchPage: state.usersSearchPage
+    users: state.usersSearchPage
   }
 }
 
@@ -34,6 +34,6 @@ const mapDispatchToProps = (dispatch: DispatchType):DispatchPropsType => {
   }
 }
 
-const UsersSearchContainer = connect(mapStateToProps,mapDispatchToProps)(UsersSearch)
+const UsersSearchContainer = connect(mapStateToProps, mapDispatchToProps)(UsersSearchC)
 
 export default React.memo(UsersSearchContainer);
