@@ -1,15 +1,23 @@
 import React from "react";
-import ProfileInfoContainer from "./ProfileInfoContainer";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import {ProfileContainerPropsType} from "./ProfileContainer";
+import {UserInfo} from "./UserInfo/UserInfo";
+import UserPosts from "./UserPosts/UserPosts";
 
 
-const Profile = () => {
-  return (
-      <div>
-        <ProfileInfoContainer/>
-        <MyPostsContainer/>
-      </div>
-    )
+type ProfilePropsType = Omit<ProfileContainerPropsType, 'isFetching' | 'toggleFetching'>;
+
+const Profile: React.FC<ProfilePropsType> = (props) => {
+  return (<div>
+        <UserInfo userInfo={props.userInfo}
+                  setUserInfo={props.setUserInfo}
+
+        />
+        <UserPosts userPosts={props.userPosts}
+                   changePostTextArea={props.changePostTextArea}
+                   addPost={props.addPost}
+                   messageInTextAreaPost={props.messageInTextAreaPost}
+        />
+      </div>)
 }
 
 

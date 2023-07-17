@@ -9,20 +9,9 @@ import UsersSearch from "./UsersSearch";
 import Preloader from "../Preloader/Preloader";
 
 
-type UsersSearchPropsType = {
-  users: Array<UserType>
-  currentPage: number
-  totalUsersCount: number
-  countOfUsersOnPage: number
-  isFetching: boolean
-  changeFollowedStatus: (userId: number) => void
-  setUsers: (users:Array<UserType>) => void
-  setTotalUsersCount: (totalCount:number) => void
-  setNewCurrentPage: (newPage: number) => void
-  toggleFetching: (isFetching: boolean) => void
-}
+type UsersSearchContainerPropsType = StatePropsType & DispatchPropsType
 
-class UsersSearchAPI extends React.Component<UsersSearchPropsType> {
+class UsersSearchContainer extends React.Component<UsersSearchContainerPropsType> {
 
   componentDidMount() {
     this.props.toggleFetching(true)
@@ -88,12 +77,11 @@ const mapStateToProps = (state: RootStateType):StatePropsType => {
   }
 }
 
-const UsersSearchContainer = connect(mapStateToProps, {
+
+export default React.memo(connect(mapStateToProps, {
   changeFollowedStatus,
   setUsers,
   setTotalUsersCount,
   setNewCurrentPage,
   toggleFetching
-}as DispatchPropsType)(UsersSearchAPI)
-
-export default React.memo(UsersSearchContainer);
+}as DispatchPropsType)(UsersSearchContainer));

@@ -3,14 +3,14 @@ import classes from './Header.module.css'
 
 
 type HeaderPropsType = {
-  mainLogo: string
+  mainLogoSite: string
 }
 
 const Header: React.FC<HeaderPropsType> = (props) => {
 
   return <header className={classes.header}>
     <div className={classes.logo}>
-      <img className={classes.icon} src={props.mainLogo} alt="logo"/>
+      <img className={classes.icon} src={props.mainLogoSite} alt="logo"/>
     </div>
   </header>
 }

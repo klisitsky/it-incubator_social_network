@@ -1,17 +1,17 @@
 import React, {ChangeEvent} from "react";
-import classes from './MyPosts.module.css';
+import classes from './UserPosts.module.css';
 import Post, {PostType} from "./Post/Post";
 
 type MyPostsPropsType = {
-  posts: Array<PostType>
+  userPosts: Array<PostType>
   messageInTextAreaPost: string
   addPost: () => void
   changePostTextArea: (value: string) => void
 }
 
-const MyPosts: React.FC<MyPostsPropsType> = (props) => {
+const UserPosts: React.FC<MyPostsPropsType> = (props) => {
 
-  const renderedPosts = props.posts.map(obj => <Post key={obj.id} post={obj}/>)
+  const renderedPosts = props.userPosts.map(obj => <Post key={obj.id} post={obj}/>)
 
   const onChangePostTextAreaHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
     props.changePostTextArea(event.currentTarget.value)
@@ -26,6 +26,6 @@ const MyPosts: React.FC<MyPostsPropsType> = (props) => {
       )
 }
 
-export default MyPosts
+export default UserPosts
 
 

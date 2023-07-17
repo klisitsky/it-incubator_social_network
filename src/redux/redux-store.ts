@@ -3,6 +3,7 @@ import reducerProfile, {ProfileActionsTypes} from "./reducerProfile";
 import reducerDialogs, {DialogsActionsTypes} from "./reducerDialogs";
 import reducerNavbar from "./reducerNavbar";
 import ReducerUsersSearch, {UsersSearchActionsTypes} from "./reducerUsersSearch";
+import reducerHeader from "./reducerHeader";
 
 
 export type ActionsTypes = ProfileActionsTypes | DialogsActionsTypes | UsersSearchActionsTypes
@@ -10,6 +11,7 @@ export type ActionsTypes = ProfileActionsTypes | DialogsActionsTypes | UsersSear
 
 
 const reducers = combineReducers({
+  header: reducerHeader,
   profilePage: reducerProfile,
   dialogsPage: reducerDialogs,
   navbar: reducerNavbar,

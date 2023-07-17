@@ -4,12 +4,12 @@ import {connect} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
 
 export type StatePropsType = {
-  mainLogo: string
+  mainLogoSite: string
 }
 
 const mapStateToProps = (state: RootStateType):StatePropsType => {
   return {
-    mainLogo: state.profilePage.mainLogoSite,
+    mainLogoSite: state.header.mainLogoSite,
   }
 }
 
