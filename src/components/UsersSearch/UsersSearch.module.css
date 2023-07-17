@@ -1,0 +1,14 @@
+.pagination {
+
+}
+
+.selectedPage {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.userAvatar img {
+  height: 100px;
+  width:100px;
+  border-radius: 50%;
+}

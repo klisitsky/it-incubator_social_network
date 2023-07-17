@@ -6,8 +6,8 @@ import {v1} from "uuid";
 const ADD_POST = 'addPost'
 const CHANGE_MESSAGE_TEXT_POST = 'changeMessageTextPost'
 
-export type ProfileActionsTypes = ReturnType<typeof addPostCreator> |
-                                  ReturnType<typeof changeMessageTextPostCreator>
+export type ProfileActionsTypes = ReturnType<typeof addPost> |
+                                  ReturnType<typeof changePostTextArea>
 
 
 export type profilePageType = {
@@ -69,11 +69,11 @@ const reducerProfile = (state:profilePageType = initialState, action:ActionsType
   }
 }
 
-export const addPostCreator = () => ({
+export const addPost = () => ({
   type: ADD_POST
 } as const)
 
-export const changeMessageTextPostCreator = (newMessage: string) => ({
+export const changePostTextArea = (newMessage: string) => ({
   type: CHANGE_MESSAGE_TEXT_POST,
   messageInTextAreaPost: newMessage
 } as const)

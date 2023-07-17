@@ -8,7 +8,7 @@ type DialogsPropsType = {
   dialogsData: Array<DialogType>
   messagesData: Array<MessageType>
   messageInTextAreaDialogs: string
-  changeTextArea: (value:string) => void
+  changeMessageTextDialog: (value:string) => void
   sendMessage: () => void
 }
 
@@ -23,9 +23,11 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
   })
 
   const onTextAreaChangeHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
-    props.changeTextArea(event.currentTarget.value)
+    debugger
+    props.changeMessageTextDialog(event.currentTarget.value)
+    debugger
   }
-  const onSendMessageCliclHanler = () => {
+  const onSendMessageClickHandler = () => {
     props.sendMessage()
   }
 
@@ -40,7 +42,7 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
           <textarea value={props.messageInTextAreaDialogs}
                     onChange={onTextAreaChangeHandler}>
           </textarea>
-          <button style={{width: '40px', height: '20px'}} onClick={onSendMessageCliclHanler}>send</button>
+          <button style={{width: '40px', height: '20px'}} onClick={onSendMessageClickHandler}>send</button>
         </div>
       </div>
     </div>

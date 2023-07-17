@@ -6,8 +6,8 @@ import {DialogType} from "../components/Dialogs/Dialog/Dialog";
 const SEND_MESSAGE = 'sendMessage'
 const CHANGE_MESSAGE_TEXT_DIALOG = 'changeMessageTextDialog'
 
-export type DialogsActionsTypes = ReturnType<typeof sendMessageCreator> |
-                                  ReturnType<typeof changeMessageTextDialogCreator>
+export type DialogsActionsTypes = ReturnType<typeof sendMessage> |
+                                  ReturnType<typeof changeMessageTextDialog>
 
 export type dialogsPageType = {
   dialogsData: Array<DialogType>
@@ -51,11 +51,11 @@ const reducerDialogs = (state:dialogsPageType = initialState, action:ActionsType
   }
 }
 
-export const sendMessageCreator = () => ({
+export const sendMessage = () => ({
   type: SEND_MESSAGE
 } as const)
 
-export const changeMessageTextDialogCreator = (newMessage: string) => ({
+export const changeMessageTextDialog = (newMessage: string) => ({
   type: CHANGE_MESSAGE_TEXT_DIALOG,
   messageInTextAreaDialogs: newMessage
 } as const)

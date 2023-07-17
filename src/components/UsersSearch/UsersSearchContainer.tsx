@@ -1,39 +1,99 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {DispatchType, RootStateType} from "../../redux/redux-store";
-import {followAC, setUsersAC, UserType} from "../../redux/reducerUsersSearch";
-import UsersSearchC from "./UsersSearchC";
+import {RootStateType} from "../../redux/redux-store";
+import {
+  changeFollowedStatus, setNewCurrentPage, setTotalUsersCount, setUsers, toggleFetching, UserType
+} from "../../redux/reducerUsersSearch";
+import axios from "axios";
+import UsersSearch from "./UsersSearch";
+import Preloader from "../Preloader/Preloader";
 
+
+type UsersSearchPropsType = {
+  users: Array<UserType>
+  currentPage: number
+  totalUsersCount: number
+  countOfUsersOnPage: number
+  isFetching: boolean
+  changeFollowedStatus: (userId: number) => void
+  setUsers: (users:Array<UserType>) => void
+  setTotalUsersCount: (totalCount:number) => void
+  setNewCurrentPage: (newPage: number) => void
+  toggleFetching: (isFetching: boolean) => void
+}
+
+class UsersSearchAPI extends React.Component<UsersSearchPropsType> {
+
+  componentDidMount() {
+    this.props.toggleFetching(true)
+    const URL_PATH = `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.countOfUsersOnPage}`
+    axios.get(URL_PATH).then(response => {
+      this.props.setUsers(response.data.items)
+      this.props.setTotalUsersCount(100)
+      this.props.toggleFetching(false)
+    })
+  }
+
+  onChangeCurrentPageClickHandler = (newPage:number) => {
+    this.props.toggleFetching(true)
+    this.props.setNewCurrentPage(newPage)
+    const URL_PATH = `https://social-network.samuraijs.com/api/1.0/users?page=${newPage}&count=${this.props.countOfUsersOnPage}`
+    axios.get(URL_PATH).then(response => {
+      this.props.setUsers(response.data.items)
+      this.props.toggleFetching(false)
+    })
+
+  }
+
+  render() {
+
+    return <>
+      {this.props.isFetching
+        ? <Preloader/>
+        : <UsersSearch users={this.props.users}
+        currentPage={this.props.currentPage}
+        totalUsersCount={this.props.totalUsersCount}
+        countOfUsersOnPage={this.props.countOfUsersOnPage}
+        changeFollowedStatus={this.props.changeFollowedStatus}
+        onChangeCurrentPageClickHandler={this.onChangeCurrentPageClickHandler}/>}
+    </>
+
+  }
+}
 
 
 export type StatePropsType = {
   users: Array<UserType>
+  currentPage: number
+  totalUsersCount: number
+  countOfUsersOnPage: number
+  isFetching: boolean
+}
+
+export type DispatchPropsType = {
+  changeFollowedStatus: (userId: number) => void
+  setUsers: (users: Array<UserType>) => void
+  setTotalUsersCount: (TotalUsersCount: number) => void
+  setNewCurrentPage: (newCurrentPage: number) => void
+  toggleFetching: (isFetching: boolean) => void
 }
 
 const mapStateToProps = (state: RootStateType):StatePropsType => {
   return {
-    users: state.usersSearchPage
+    users: state.usersSearchPage.users,
+    currentPage: state.usersSearchPage.currentPage,
+    totalUsersCount: state.usersSearchPage.totalUsersCount,
+    countOfUsersOnPage: state.usersSearchPage.countOfUsersOnPage,
+    isFetching: state.usersSearchPage.isFetching
   }
 }
 
-type DispatchPropsType = {
-  changeFollowedStatus: (userId: number) => void
-  setUsers: (users: Array<UserType>) => void
-}
-
-const mapDispatchToProps = (dispatch: DispatchType):DispatchPropsType => {
-  return {
-    changeFollowedStatus(userId: number) {
-      const action = followAC(userId)
-      dispatch(action)
-    },
-    setUsers(users: Array<UserType>) {
-      const action = setUsersAC(users)
-      dispatch(action)
-    }
-  }
-}
-
-const UsersSearchContainer = connect(mapStateToProps, mapDispatchToProps)(UsersSearchC)
+const UsersSearchContainer = connect(mapStateToProps, {
+  changeFollowedStatus,
+  setUsers,
+  setTotalUsersCount,
+  setNewCurrentPage,
+  toggleFetching
+}as DispatchPropsType)(UsersSearchAPI)
 
 export default React.memo(UsersSearchContainer);
