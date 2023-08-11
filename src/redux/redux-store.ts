@@ -4,6 +4,7 @@ import reducerDialogs, {DialogsActionsTypes} from "./reducerDialogs";
 import reducerNavbar from "./reducerNavbar";
 import ReducerUsersSearch, {UsersSearchActionsTypes} from "./reducerUsersSearch";
 import reducerHeader from "./reducerHeader";
+import ReducerAuth from "./reducerAuth";
 
 
 export type ActionsTypes = ProfileActionsTypes | DialogsActionsTypes | UsersSearchActionsTypes
@@ -15,7 +16,8 @@ const reducers = combineReducers({
   profilePage: reducerProfile,
   dialogsPage: reducerDialogs,
   navbar: reducerNavbar,
-  usersSearchPage: ReducerUsersSearch
+  usersSearchPage: ReducerUsersSearch,
+  auth: ReducerAuth
 })
 
 let store = createStore(reducers)

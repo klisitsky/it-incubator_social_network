@@ -2,6 +2,7 @@ import React from 'react';
 import {UserType} from "../../redux/reducerUsersSearch";
 import s from './UsersSearch.module.css'
 import defaultPhoto from '../../img/istockphoto-846183030-612x612.jpg'
+import {NavLink} from "react-router-dom";
 
 type UsersSearchPropsType = {
   users: Array<UserType>
@@ -33,7 +34,9 @@ export const UsersSearch: React.FC<UsersSearchPropsType> = (props) => {
         {props.users.map(u => {
           return <div className="userItem" key={u.id}>
             <div className={s.userAvatar}>
-              <img src={u.photos.small ? u.photos.small : defaultPhoto} alt="avatar"/>
+              <NavLink to={`profile/${u.id}`}>
+                <img src={u.photos.small ? u.photos.small : defaultPhoto} alt="avatar"/>
+              </NavLink>
               <button
                 onClick={() => props.changeFollowedStatus(u.id)}>{u.followed ? 'Unfollow' : 'Follow'}</button>
             </div>

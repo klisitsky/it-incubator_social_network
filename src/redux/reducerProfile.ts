@@ -1,4 +1,3 @@
-import {ActionsTypes} from "./redux-store";
 import {PostType} from "../components/Profile/UserPosts/Post/Post";
 import {v1} from "uuid";
 
@@ -92,12 +91,13 @@ const initialState: profilePageType = {
 }
 
 
-const reducerProfile = (state:profilePageType = initialState, action:ActionsTypes) => {
+const reducerProfile = (state:profilePageType = initialState, action:ProfileActionsTypes) => {
   switch (action.type) {
     case SET_USER_INFO:
       return {...state,
         userInfo: action.payload.userInfo
       }
+
     case TOGGLE_FETCHING:
       return {...state,
         isFetching: action.payload.isFetching

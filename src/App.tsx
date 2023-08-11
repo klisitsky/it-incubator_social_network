@@ -21,7 +21,7 @@ export const App = () => {
           <NavBarContainer/>
           <div className="container__content">
             <Route path="/dialogs/" component={DialogsContainer}/>
-            <Route path="/profile/" component={ProfileContainer}/>
+            <Route path="/profile/:userId?" component={ProfileContainer}/>
             <Route path="/music" component={Music}/>
             <Route path="/news" component={News}/>
             <Route path="/settings" component={Settings}/>

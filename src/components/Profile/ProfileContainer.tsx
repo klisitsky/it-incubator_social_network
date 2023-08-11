@@ -6,14 +6,19 @@ import {PostType} from "./UserPosts/Post/Post";
 import React from "react";
 import Preloader from "../Preloader/Preloader";
 import axios from "axios";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 
-export type ProfileContainerPropsType = StatePropsType & DispatchPropsType
+type Params = { userId: string }
+
+export type ProfileContainerPropsType = StatePropsType & DispatchPropsType & RouteComponentProps<Params>
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
   componentDidMount() {
+    let userId = this.props.match.params.userId
+    if (!userId) userId = '2'
     this.props.toggleFetching(true)
-    const URL_PATH = `https://social-network.samuraijs.com/api/1.0/profile/${this.props.userInfo.userId}`
+    const URL_PATH = `https://social-network.samuraijs.com/api/1.0/profile/${userId}`
     axios.get(URL_PATH).then(response => {
       this.props.setUserInfo(response.data)
       this.props.toggleFetching(false)
@@ -21,7 +26,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
   }
 
   render() {
-    const {isFetching, toggleFetching, ...otherProps} = this.props
+    const {isFetching, ...otherProps} = this.props
     return <>
       {isFetching
       ? <Preloader/>
@@ -53,10 +58,10 @@ export type DispatchPropsType = {
   toggleFetching: (isFetching: boolean) => void
 }
 
-
+const ProfileContainerWithUrl = withRouter(ProfileContainer)
 
 export default React.memo(connect(mapStateToProps, {
   addPost,
   changePostTextArea,
   setUserInfo,
-  toggleFetching} as DispatchPropsType)(ProfileContainer))
+  toggleFetching} as DispatchPropsType)(ProfileContainerWithUrl))
