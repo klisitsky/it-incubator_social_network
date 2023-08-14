@@ -4,9 +4,9 @@ import {RootStateType} from "../../redux/redux-store";
 import {
   changeFollowedStatus, setNewCurrentPage, setTotalUsersCount, setUsers, toggleFetching, UserType
 } from "../../redux/reducerUsersSearch";
-import axios from "axios";
 import UsersSearch from "./UsersSearch";
 import Preloader from "../Preloader/Preloader";
+import {usersAPI} from "../../api/api";
 
 
 type UsersSearchContainerPropsType = StatePropsType & DispatchPropsType
@@ -15,9 +15,8 @@ class UsersSearchContainer extends React.Component<UsersSearchContainerPropsType
 
   componentDidMount() {
     this.props.toggleFetching(true)
-    const URL_PATH = `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.countOfUsersOnPage}`
-    axios.get(URL_PATH).then(response => {
-      this.props.setUsers(response.data.items)
+    usersAPI.getUsers(this.props.currentPage, this.props.countOfUsersOnPage).then(items => {
+      this.props.setUsers(items)
       this.props.setTotalUsersCount(100)
       this.props.toggleFetching(false)
     })
@@ -26,12 +25,10 @@ class UsersSearchContainer extends React.Component<UsersSearchContainerPropsType
   onChangeCurrentPageClickHandler = (newPage:number) => {
     this.props.toggleFetching(true)
     this.props.setNewCurrentPage(newPage)
-    const URL_PATH = `https://social-network.samuraijs.com/api/1.0/users?page=${newPage}&count=${this.props.countOfUsersOnPage}`
-    axios.get(URL_PATH).then(response => {
-      this.props.setUsers(response.data.items)
+    usersAPI.getUsersNewPage(this.props.currentPage, this.props.countOfUsersOnPage).then(items => {
+      this.props.setUsers(items)
       this.props.toggleFetching(false)
     })
-
   }
 
   render() {

@@ -5,8 +5,8 @@ import {addPost, changePostTextArea, setUserInfo, toggleFetching, UserInfoType} 
 import {PostType} from "./UserPosts/Post/Post";
 import React from "react";
 import Preloader from "../Preloader/Preloader";
-import axios from "axios";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {profileAPI} from "../../api/api";
 
 type Params = { userId: string }
 
@@ -18,9 +18,8 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     let userId = this.props.match.params.userId
     if (!userId) userId = '2'
     this.props.toggleFetching(true)
-    const URL_PATH = `https://social-network.samuraijs.com/api/1.0/profile/${userId}`
-    axios.get(URL_PATH).then(response => {
-      this.props.setUserInfo(response.data)
+    profileAPI.getUserInfo(userId).then(data => {
+      this.props.setUserInfo(data)
       this.props.toggleFetching(false)
     })
   }

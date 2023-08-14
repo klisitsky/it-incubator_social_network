@@ -38,19 +38,7 @@ export type UsersSearchType = {
 
 
 const initialState: UsersSearchType = {
-  users: [
-    // {
-    // id: 1,
-    // name: 'Дмитрий',
-    // uniqueUrlName: '',
-    // status: 'Yo bro',
-    // photos: {
-    //   small: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/16620/production/_91408619_55df76d5-2245-41c1-8031-07a4da3f313f.jpg',
-    //   large: 'https://ichef.bbci.co.uk/news/640/cpsprodpb/16620/production/_91408619_55df76d5-2245-41c1-8031-07a4da3f313f.jpg'
-    // },
-    // followed: true
-    // }
-  ],
+  users: [],
   currentPage: 4,
   totalUsersCount: 19,
   countOfUsersOnPage: 10,

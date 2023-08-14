@@ -2,8 +2,8 @@ import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
-import axios from "axios";
 import {AuthStatusChanging, setAuthUserData} from "../../redux/reducerAuth";
+import {authAPI} from "../../api/api";
 
 
 type HeaderComponentPropsType = StatePropsType & DispatchPropsType
@@ -11,15 +11,12 @@ type HeaderComponentPropsType = StatePropsType & DispatchPropsType
 class HeaderAPI extends React.Component<HeaderComponentPropsType> {
 
   componentDidMount() {
-    axios.get('https://social-network.samuraijs.com/api/1.0/auth/me', {withCredentials: true})
-        .then(response => response.data)
+    authAPI.login()
         .then(data => {
           let {id, email, login} = data.data
           this.props.setAuthUserData(id, email, login)
           this.props.AuthStatusChanging()
         })
-
-
   }
 
   render() {

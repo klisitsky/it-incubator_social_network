@@ -3,6 +3,7 @@ import {UserType} from "../../redux/reducerUsersSearch";
 import s from './UsersSearch.module.css'
 import defaultPhoto from '../../img/istockphoto-846183030-612x612.jpg'
 import {NavLink} from "react-router-dom";
+import {followAPI} from "../../api/api";
 
 type UsersSearchPropsType = {
   users: Array<UserType>
@@ -19,6 +20,18 @@ export const UsersSearch: React.FC<UsersSearchPropsType> = (props) => {
     const pagesArray = []
     for (let i = 1; i <= pagesCount; i++) {
       pagesArray.push(i)
+    }
+
+    const onFollowingClickHandler = (userId: number, isFollow: boolean) => {
+        if (!isFollow) {
+            followAPI.follow(userId).then(data => {
+                if (!data.resultCode) props.changeFollowedStatus(userId)
+            })
+        } else {
+            followAPI.unfollow(userId).then(data => {
+                if (!data.resultCode) props.changeFollowedStatus(userId)
+            })
+        }
     }
 
     return (<>
@@ -38,7 +51,8 @@ export const UsersSearch: React.FC<UsersSearchPropsType> = (props) => {
                 <img src={u.photos.small ? u.photos.small : defaultPhoto} alt="avatar"/>
               </NavLink>
               <button
-                onClick={() => props.changeFollowedStatus(u.id)}>{u.followed ? 'Unfollow' : 'Follow'}</button>
+                onClick={() => onFollowingClickHandler(u.id, u.followed)}>{u.followed ? 'Unfollow' : 'Follow'}
+              </button>
             </div>
             <div className="userInfo">
                 <span className="userName">{u.name}</span>
