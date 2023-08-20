@@ -8,6 +8,7 @@ import Preloader from "../Preloader/Preloader";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {addPost, changePostTextArea, setUserInfo, toggleFetching} from "../../redux/actions/actionsProfile";
 import {getUserInfoAPI} from "../../redux/thunks/thunksProfile";
+import RedirectLogin from "../RedirectLogin/RedirectLogin";
 
 type Params = { userId: string }
 
@@ -23,6 +24,8 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
   render() {
     const {isFetching, ...otherProps} = this.props
+
+    if (!this.props.isAuth) return <RedirectLogin/>
     return <>
       {isFetching
       ? <Preloader/>
@@ -38,13 +41,15 @@ type StatePropsType = {
   userPosts: Array<PostType>
   isFetching: boolean
   messageInTextAreaPost: string
+  isAuth: boolean
 }
 
 const mapStateToProps = (state:RootStateType):StatePropsType => ({
   userInfo: state.profilePage.userInfo,
   userPosts: state.profilePage.userPosts,
   isFetching: state.profilePage.isFetching,
-  messageInTextAreaPost: state.profilePage.messageInTextAreaPost
+  messageInTextAreaPost: state.profilePage.messageInTextAreaPost,
+  isAuth: state.auth.isAuth
 })
 
 export type DispatchPropsType = {

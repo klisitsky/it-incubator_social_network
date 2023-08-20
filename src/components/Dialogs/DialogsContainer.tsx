@@ -11,13 +11,15 @@ export type StatePropsType = {
   dialogsData: Array<DialogType>
   messagesData: Array<MessageType>
   messageInTextAreaDialogs: string
+  isAuth: boolean
 }
 
 const mapStateToProps = (state: RootStateType):StatePropsType => {
   return {
     dialogsData: state.dialogsPage.dialogsData,
     messagesData: state.dialogsPage.messagesData,
-    messageInTextAreaDialogs: state.dialogsPage.messageInTextAreaDialogs
+    messageInTextAreaDialogs: state.dialogsPage.messageInTextAreaDialogs,
+    isAuth: state.auth.isAuth
   }
 }
 

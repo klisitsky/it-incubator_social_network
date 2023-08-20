@@ -27,7 +27,11 @@ export const followAPI = {
 
 export const authAPI = {
     login() {
-        return instance.get('auth/me').then(response => response.data)
+        return instance.get('auth/me').then(response => {
+            console.log(response.data)
+            debugger
+            return response.data
+        })
     }
 }
 

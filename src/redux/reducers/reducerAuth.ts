@@ -37,7 +37,7 @@ const ReducerAuth = (state = initialState, action:AuthActionsType):initialStateT
         case AUTH_STATUS_CHANGING:
             return {
             ...state,
-            isAuth: true
+            isAuth: !state.isAuth
         }
         default:
             return state

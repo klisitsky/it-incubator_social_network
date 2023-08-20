@@ -16,7 +16,7 @@ const Header: React.FC<HeaderPropsType> = (props) => {
     </div>
     <div> {props.isAuth
         ? <span>{props.userEmail}</span>
-        : <NavLink to={'/login'}>login</NavLink>
+        : <button><NavLink to={'/login'}>log In</NavLink></button>
     }
     </div>
   </header>
