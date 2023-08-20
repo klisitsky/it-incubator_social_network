@@ -1,5 +1,4 @@
-import {NavBarType} from "../components/NavBar/NavBar";
-import {ActionsTypes} from "./redux-store";
+import {NavBarType} from "../../components/NavBar/NavBar";
 import {v1} from "uuid";
 
 
@@ -13,7 +12,7 @@ const initialState: Array<NavBarType> = [
 
 ]
 
-const reducerNavbar = (state:Array<NavBarType> = initialState, action:ActionsTypes) => {
+const reducerNavbar = (state:Array<NavBarType> = initialState, action:any) => {
       return state
 }
 

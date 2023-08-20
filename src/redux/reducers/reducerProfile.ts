@@ -1,11 +1,15 @@
-import {PostType} from "../components/Profile/UserPosts/Post/Post";
+import {PostType} from "../../components/Profile/UserPosts/Post/Post";
 import {v1} from "uuid";
+import {
+  ADD_POST,
+  addPost,
+  CHANGE_MESSAGE_TEXT_POST,
+  changePostTextArea,
+  SET_USER_INFO, setUserInfo,
+  TOGGLE_FETCHING, toggleFetching
+} from "../actions/actionsProfile";
 
 
-const ADD_POST = 'ADD_POST'
-const CHANGE_MESSAGE_TEXT_POST = 'CHANGE_MESSAGE_TEXT_POST'
-const SET_USER_INFO = 'SET_USER_INFO'
-const TOGGLE_FETCHING = 'TOGGLE_FETCHING'
 
 export type ProfileActionsTypes = ReturnType<typeof addPost>
   | ReturnType<typeof changePostTextArea>
@@ -34,14 +38,14 @@ export type UserInfoType = {
   }
 }
 
-export type profilePageType = {
+type initialStateType = {
   userInfo: UserInfoType
   isFetching: boolean
   messageInTextAreaPost: string
   userPosts: Array<PostType>
 }
 
-const initialState: profilePageType = {
+const initialState: initialStateType = {
     userInfo: {
       userId: 2,
       lookingForAJob: false,
@@ -91,7 +95,7 @@ const initialState: profilePageType = {
 }
 
 
-const reducerProfile = (state:profilePageType = initialState, action:ProfileActionsTypes) => {
+const reducerProfile = (state:initialStateType = initialState, action:ProfileActionsTypes): initialStateType => {
   switch (action.type) {
     case SET_USER_INFO:
       return {...state,
@@ -126,29 +130,6 @@ const reducerProfile = (state:profilePageType = initialState, action:ProfileActi
   }
 }
 
-export const addPost = () => ({
-  type: ADD_POST
-} as const)
 
-export const changePostTextArea = (newMessage: string) => ({
-  type: CHANGE_MESSAGE_TEXT_POST,
-  payload: {
-    newMessage
-  }
-} as const)
-
-export const setUserInfo = (userInfo: UserInfoType) => ({
-  type: SET_USER_INFO,
-  payload: {
-    userInfo
-  }
-} as const)
-
-export const toggleFetching = (isFetching: boolean) => ({
-  type: TOGGLE_FETCHING,
-  payload: {
-    isFetching
-  }
-} as const)
 
 export default reducerProfile

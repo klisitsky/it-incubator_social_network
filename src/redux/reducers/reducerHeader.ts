@@ -1,4 +1,3 @@
-import {ActionsTypes} from "./redux-store";
 
 
 type HeaderType = {
@@ -9,7 +8,7 @@ const initialState: HeaderType = {
   mainLogoSite: 'https://img.freepik.com/premium-vector/letter-cc-logo-design-abstract-letter-cc-logo-design_219523-125.jpg'
 }
 
-const reducerHeader = (state:HeaderType = initialState, action:ActionsTypes):HeaderType => {
+const reducerHeader = (state:HeaderType = initialState, action:any):HeaderType => {
   return state
 }
 

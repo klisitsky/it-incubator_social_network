@@ -1,6 +1,6 @@
 import s from "./UserInfo.module.css";
 import React from "react";
-import {UserInfoType} from "../../../redux/reducerProfile";
+import {UserInfoType} from "../../../redux/reducers/reducerProfile";
 
 type UserInfoPropsType = {
   userInfo: UserInfoType

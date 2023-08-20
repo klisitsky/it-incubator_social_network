@@ -1,12 +1,13 @@
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
-import {addPost, changePostTextArea, setUserInfo, toggleFetching, UserInfoType} from "../../redux/reducerProfile";
+import {UserInfoType} from "../../redux/reducers/reducerProfile";
 import {PostType} from "./UserPosts/Post/Post";
 import React from "react";
 import Preloader from "../Preloader/Preloader";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {profileAPI} from "../../api/api";
+import {addPost, changePostTextArea, setUserInfo, toggleFetching} from "../../redux/actions/actionsProfile";
+import {getUserInfoAPI} from "../../redux/thunks/thunksProfile";
 
 type Params = { userId: string }
 
@@ -17,11 +18,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
   componentDidMount() {
     let userId = this.props.match.params.userId
     if (!userId) userId = '2'
-    this.props.toggleFetching(true)
-    profileAPI.getUserInfo(userId).then(data => {
-      this.props.setUserInfo(data)
-      this.props.toggleFetching(false)
-    })
+    this.props.getUserInfoAPI(userId)
   }
 
   render() {
@@ -55,6 +52,7 @@ export type DispatchPropsType = {
   changePostTextArea: (value: string) => void
   setUserInfo: (data: UserInfoType) => void
   toggleFetching: (isFetching: boolean) => void
+  getUserInfoAPI: any
 }
 
 const ProfileContainerWithUrl = withRouter(ProfileContainer)
@@ -63,4 +61,5 @@ export default React.memo(connect(mapStateToProps, {
   addPost,
   changePostTextArea,
   setUserInfo,
-  toggleFetching} as DispatchPropsType)(ProfileContainerWithUrl))
+  toggleFetching,
+  getUserInfoAPI} as DispatchPropsType)(ProfileContainerWithUrl))

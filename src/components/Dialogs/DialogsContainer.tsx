@@ -1,10 +1,10 @@
 import React from "react";
-import {changeMessageTextDialog, sendMessage} from "../../redux/reducerDialogs";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {DialogType} from "./Dialog/Dialog";
 import {MessageType} from "./Message/Message";
 import {RootStateType} from "../../redux/redux-store";
+import {changeMessageTextDialog, sendMessage} from "../../redux/actions/actionsDialogs";
 
 
 export type StatePropsType = {

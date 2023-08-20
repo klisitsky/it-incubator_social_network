@@ -1,11 +1,11 @@
-import {ActionsTypes} from "./redux-store";
-
-const FOLLOW = "FOLLOW"
-const SET_USERS = "SET_USERS"
-const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT"
-const SET_NEW_CURRENT_PAGE = "SET_NEW_CURRENT_PAGE"
-const TOGGLE_FETCHING = "TOGGLE_FETCHING"
-
+import {
+  CHANGE_FOLLOWING_IN_PROGRESS,
+  changeFollowedStatus, changeFollowingInProgress, FOLLOW, SET_NEW_CURRENT_PAGE, SET_TOTAL_USERS_COUNT, SET_USERS,
+  setNewCurrentPage,
+  setTotalUsersCount,
+  setUsers, TOGGLE_FETCHING,
+  toggleFetching
+} from "../actions/actionsUserSearch";
 
 
 export type UsersSearchActionsTypes = ReturnType<typeof changeFollowedStatus>
@@ -13,6 +13,8 @@ export type UsersSearchActionsTypes = ReturnType<typeof changeFollowedStatus>
   | ReturnType<typeof setTotalUsersCount>
   | ReturnType<typeof setNewCurrentPage>
   | ReturnType<typeof toggleFetching>
+  | ReturnType<typeof changeFollowingInProgress>
+
 
 
 export type UserType = {
@@ -27,25 +29,27 @@ export type UserType = {
   followed: boolean
 }
 
-export type UsersSearchType = {
+type initialStateType = {
   users: Array<UserType>
   currentPage: number
   totalUsersCount: number
   countOfUsersOnPage: number
   isFetching: boolean
+  followingsInProgress: Array<number>
 }
 
 
 
-const initialState: UsersSearchType = {
+const initialState: initialStateType = {
   users: [],
   currentPage: 4,
   totalUsersCount: 19,
   countOfUsersOnPage: 10,
-  isFetching: false
+  isFetching: false,
+  followingsInProgress: []
 }
 
-const ReducerUsersSearch = (state = initialState, action:ActionsTypes): UsersSearchType => {
+const ReducerUsersSearch = (state = initialState, action:UsersSearchActionsTypes): initialStateType => {
   switch (action.type) {
     case FOLLOW:
       return {
@@ -60,54 +64,25 @@ const ReducerUsersSearch = (state = initialState, action:ActionsTypes): UsersSea
       return {...state,
         totalUsersCount: action.payload.totalUsersCount
       }
-      case SET_NEW_CURRENT_PAGE:
+    case SET_NEW_CURRENT_PAGE:
       return {...state,
         currentPage: action.payload.newCurrentPage
       }
-      case TOGGLE_FETCHING:
+    case TOGGLE_FETCHING:
       return {...state,
         isFetching: action.payload.isFetching
+      }
+    case CHANGE_FOLLOWING_IN_PROGRESS:
+      return {
+        ...state,
+        followingsInProgress: action.payload.isContained
+            ? [...state.followingsInProgress, action.payload.userId]
+            : state.followingsInProgress.filter(u => u !== action.payload.userId)
       }
     default:
       return state
   }
 };
-
-
-export const changeFollowedStatus = (userId:number) => ({
-  type: FOLLOW,
-  payload: {
-    userId
-  }
-} as const)
-
-export const setUsers = (users:Array<UserType>) => ({
-  type: SET_USERS,
-  payload: {
-    users
-  }
-} as const)
-
-export const setTotalUsersCount = (totalUsersCount:number) => ({
-  type: SET_TOTAL_USERS_COUNT,
-  payload: {
-    totalUsersCount
-  }
-} as const)
-
-export const setNewCurrentPage = (newCurrentPage:number) => ({
-  type: SET_NEW_CURRENT_PAGE,
-  payload: {
-    newCurrentPage
-  }
-} as const)
-
-export const toggleFetching = (isFetching:boolean) => ({
-  type: TOGGLE_FETCHING,
-  payload: {
-    isFetching
-  }
-} as const)
 
 
 export default ReducerUsersSearch;

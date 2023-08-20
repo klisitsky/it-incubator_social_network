@@ -1,11 +1,15 @@
+import {
+    AUTH_STATUS_CHANGING,
+    AuthStatusChanging,
+    SET_USER_DATA,
+    setAuthUserData
+} from "../actions/actionsAuth";
 
-
-const SET_USER_DATA = 'SET_USER_DATA'
-const AUTH_STATUS_CHANGING = 'AUTH_STATUS_CHANGING'
 
 export type AuthActionsType = ReturnType<typeof setAuthUserData>
+  | ReturnType<typeof AuthStatusChanging>
 
-export type AuthType = {
+type initialStateType = {
     data: {
         id: number | null
         email: string | null
@@ -14,7 +18,7 @@ export type AuthType = {
     isAuth: boolean
 }
 
-const initialState: AuthType = {
+const initialState: initialStateType = {
     data: {
         id: null,
         email: null,
@@ -23,7 +27,7 @@ const initialState: AuthType = {
     isAuth: false
 }
 
-const ReducerAuth = (state = initialState, action:AuthActionsType):AuthType => {
+const ReducerAuth = (state = initialState, action:AuthActionsType):initialStateType => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -39,20 +43,5 @@ const ReducerAuth = (state = initialState, action:AuthActionsType):AuthType => {
             return state
     }
 };
-
-export const setAuthUserData = (id: number, email: string, login: string) => ({
-    type: SET_USER_DATA,
-    payload: {
-        data: {
-            id,
-            email,
-            login
-        }
-    }
-})
-
-export const AuthStatusChanging = () => ({
-    type: AUTH_STATUS_CHANGING,
-})
 
 export default ReducerAuth;

@@ -13,10 +13,6 @@ export const usersAPI = {
     getUsers(currentPage:number, countOfUsersOnPage:number) {
         return instance.get(`users?page=${currentPage}&count=${countOfUsersOnPage}`)
             .then(response => response.data.items)
-    },
-    getUsersNewPage(newPage:number, countOfUsersOnPage:number) {
-        return instance.get(`users?page=${newPage}&count=${countOfUsersOnPage}`)
-            .then(response => response.data.items)
     }
 }
 
