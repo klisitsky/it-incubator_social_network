@@ -5,7 +5,7 @@ import {
   addPost,
   CHANGE_MESSAGE_TEXT_POST,
   changePostTextArea,
-  SET_USER_INFO, setUserInfo,
+  SET_USER_INFO, SET_USER_STATUS, setUserInfo, setUserStatus,
   TOGGLE_FETCHING, toggleFetching
 } from "../actions/actionsProfile";
 
@@ -15,6 +15,7 @@ export type ProfileActionsTypes = ReturnType<typeof addPost>
   | ReturnType<typeof changePostTextArea>
   | ReturnType<typeof setUserInfo>
   | ReturnType<typeof toggleFetching>
+  | ReturnType<typeof setUserStatus>
 
 export type UserInfoType = {
   userId: number
@@ -43,11 +44,12 @@ type initialStateType = {
   isFetching: boolean
   messageInTextAreaPost: string
   userPosts: Array<PostType>
+  userStatus: string
 }
 
 const initialState: initialStateType = {
     userInfo: {
-      userId: 2,
+      userId: 29430,
       lookingForAJob: false,
       lookingForAJobDescription: '',
       fullName: '',
@@ -92,6 +94,7 @@ const initialState: initialStateType = {
     }
   ],
     messageInTextAreaPost: '',
+    userStatus: ''
 }
 
 
@@ -100,6 +103,12 @@ const reducerProfile = (state:initialStateType = initialState, action:ProfileAct
     case SET_USER_INFO:
       return {...state,
         userInfo: action.payload.userInfo
+      }
+
+    case SET_USER_STATUS:
+      console.log(action.payload.title, 'action.payload.title')
+      return {...state,
+        userStatus: action.payload.title
       }
 
     case TOGGLE_FETCHING:

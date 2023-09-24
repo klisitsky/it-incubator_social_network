@@ -3,6 +3,7 @@ import {UserInfoType} from "../reducers/reducerProfile";
 export const ADD_POST = 'ADD_POST'
 export const CHANGE_MESSAGE_TEXT_POST = 'CHANGE_MESSAGE_TEXT_POST'
 export const SET_USER_INFO = 'SET_USER_INFO'
+export const SET_USER_STATUS = 'SET_USER_STATUS'
 export const TOGGLE_FETCHING = 'TOGGLE_FETCHING'
 
 
@@ -30,3 +31,11 @@ export const toggleFetching = (isFetching: boolean) => ({
     isFetching
   }
 } as const)
+
+export const setUserStatus = (title: string) => ({
+  type: SET_USER_STATUS,
+  payload: {
+    title
+  }
+} as const)
+

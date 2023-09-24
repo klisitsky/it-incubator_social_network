@@ -1,22 +1,27 @@
 import s from "./UserInfo.module.css";
 import React from "react";
 import {UserInfoType} from "../../../redux/reducers/reducerProfile";
+import {UserStatus} from "./UserStatus/UserStatus";
 
 type UserInfoPropsType = {
   userInfo: UserInfoType
   setUserInfo: (data: UserInfoType) => void
+  userStatus: string
+  updateUserStatusAPI: () => void
 }
 
 export const UserInfo = (props: UserInfoPropsType) => {
 
-  const {aboutMe, fullName, contacts, lookingForAJob, photos} = props.userInfo
+  const {fullName, contacts, lookingForAJob, photos} = props.userInfo
 
   return (<div className={s.ProfileInfoBoby}>
       <div className={s.small}>
         <img src={photos.large} alt="avatar"/>
       </div>
       <div className={s.name}>{fullName}</div>
-      <div className={s.aboutMe}>Статус: {aboutMe}</div>
+
+      <UserStatus userStatus={props.userStatus} updateUserStatusAPI={props.updateUserStatusAPI}/>
+
       <div className={s.lookingForAJob}>Занятость: {lookingForAJob ? 'В поиске работы' : 'Уже батрачу'}</div>
       <div className={s.contacts}> Меня можно найти здесь:
         <a href={contacts.github} className={s.github}>{contacts.github}</a>

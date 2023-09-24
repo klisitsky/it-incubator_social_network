@@ -28,8 +28,6 @@ export const followAPI = {
 export const authAPI = {
     login() {
         return instance.get('auth/me').then(response => {
-            console.log(response.data)
-            debugger
             return response.data
         })
     }
@@ -38,5 +36,11 @@ export const authAPI = {
 export const profileAPI = {
     getUserInfo(userId: string) {
         return instance.get(`profile/${userId}`).then(response => response.data)
+    },
+    getUserStatus(userId: string) {
+        return instance.get(`profile/status/${userId}`).then(response => response.data)
+    },
+    updateUserStatus(status: string) {
+        return instance.put(`profile/status/`, {status}).then(response => response.data)
     }
 }

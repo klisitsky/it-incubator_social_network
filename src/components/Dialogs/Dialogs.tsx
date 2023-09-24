@@ -2,7 +2,6 @@ import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import {Dialog, DialogType} from "./Dialog/Dialog";
 import {Message, MessageType} from "./Message/Message";
-import RedirectLogin from "../RedirectLogin/RedirectLogin";
 
 
 type DialogsPropsType = {
@@ -11,7 +10,6 @@ type DialogsPropsType = {
   messageInTextAreaDialogs: string
   changeMessageTextDialog: (value:string) => void
   sendMessage: () => void
-  isAuth: boolean
 }
 
 const Dialogs: React.FC<DialogsPropsType> = (props) => {
@@ -31,7 +29,7 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
     props.sendMessage()
   }
 
-  if (!props.isAuth) return <RedirectLogin/>
+
   return (
     <div className={s.messagesPage}>
       <div className={s.dialogs}>
