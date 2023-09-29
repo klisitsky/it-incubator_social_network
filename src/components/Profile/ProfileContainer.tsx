@@ -6,7 +6,7 @@ import {PostType} from "./UserPosts/Post/Post";
 import React, {ComponentType} from "react";
 import Preloader from "../Preloader/Preloader";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {addPost, changePostTextArea, setUserInfo, toggleFetching} from "../../redux/actions/actionsProfile";
+import {addPost, setUserInfo, toggleFetching} from "../../redux/actions/actionsProfile";
 import {getUserInfoAPI, getUserStatusAPI, updateUserStatusAPI} from "../../redux/thunks/thunksProfile";
 import withAuthRedirect from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
@@ -43,7 +43,6 @@ type StatePropsType = {
   userInfo: UserInfoType
   userPosts: Array<PostType>
   isFetching: boolean
-  messageInTextAreaPost: string
   userStatus: string
 }
 
@@ -51,13 +50,11 @@ const mapStateToProps = (state: RootStateType): StatePropsType => ({
   userInfo: state.profilePage.userInfo,
   userPosts: state.profilePage.userPosts,
   isFetching: state.profilePage.isFetching,
-  messageInTextAreaPost: state.profilePage.messageInTextAreaPost,
   userStatus: state.profilePage.userStatus
 })
 
 export type DispatchPropsType = {
-  addPost: () => void
-  changePostTextArea: (value: string) => void
+  addPost: (newMessagePost: string) => void
   setUserInfo: (data: UserInfoType) => void
   toggleFetching: (isFetching: boolean) => void
   getUserInfoAPI: any
@@ -69,7 +66,6 @@ export default compose<ComponentType>(
   React.memo,
   connect(mapStateToProps, {
     addPost,
-    changePostTextArea,
     setUserInfo,
     toggleFetching,
     getUserInfoAPI,

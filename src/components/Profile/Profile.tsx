@@ -16,9 +16,8 @@ const Profile: React.FC<ProfilePropsType> = (props) => {
 
         />
         <UserPosts userPosts={props.userPosts}
-                   changePostTextArea={props.changePostTextArea}
                    addPost={props.addPost}
-                   messageInTextAreaPost={props.messageInTextAreaPost}
+
         />
       </div>)
 }

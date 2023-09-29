@@ -1,12 +1,9 @@
-export const SEND_MESSAGE = 'sendMessage'
-export const CHANGE_MESSAGE_TEXT_DIALOG = 'changeMessageTextDialog'
+export const SEND_DIALOG_MESSAGE = 'SEND_DIALOG_MESSAGE'
 
 
-export const sendMessage = () => ({
-  type: SEND_MESSAGE
-} as const)
-
-export const changeMessageTextDialog = (newMessage: string) => ({
-  type: CHANGE_MESSAGE_TEXT_DIALOG,
-  messageInTextAreaDialogs: newMessage
+export const sendMessage = (dialogMessage: string) => ({
+  type: SEND_DIALOG_MESSAGE,
+  payload: {
+    dialogMessage
+  }
 } as const)

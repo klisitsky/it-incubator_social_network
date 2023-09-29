@@ -1,10 +1,8 @@
 import {PostType} from "../../components/Profile/UserPosts/Post/Post";
 import {v1} from "uuid";
 import {
-  ADD_POST,
+  ADD_MESSAGE_POST,
   addPost,
-  CHANGE_MESSAGE_TEXT_POST,
-  changePostTextArea,
   SET_USER_INFO, SET_USER_STATUS, setUserInfo, setUserStatus,
   TOGGLE_FETCHING, toggleFetching
 } from "../actions/actionsProfile";
@@ -12,7 +10,6 @@ import {
 
 
 export type ProfileActionsTypes = ReturnType<typeof addPost>
-  | ReturnType<typeof changePostTextArea>
   | ReturnType<typeof setUserInfo>
   | ReturnType<typeof toggleFetching>
   | ReturnType<typeof setUserStatus>
@@ -42,7 +39,6 @@ export type UserInfoType = {
 type initialStateType = {
   userInfo: UserInfoType
   isFetching: boolean
-  messageInTextAreaPost: string
   userPosts: Array<PostType>
   userStatus: string
 }
@@ -93,7 +89,6 @@ const initialState: initialStateType = {
       message: 'Только сидел и писал бы эти посты'
     }
   ],
-    messageInTextAreaPost: '',
     userStatus: ''
 }
 
@@ -116,23 +111,17 @@ const reducerProfile = (state:initialStateType = initialState, action:ProfileAct
         isFetching: action.payload.isFetching
       }
 
-    case CHANGE_MESSAGE_TEXT_POST:
-      return {...state,
-        messageInTextAreaPost: action.payload.newMessage ? action.payload.newMessage : ''
-      }
-
-    case ADD_POST:
+    case ADD_MESSAGE_POST:
       const newPost: PostType = {
         id: v1(),
         photoUrl: `https://cpad.ask.fm/a4e/d9461/7d98/4b6a/b9c6/f598b6ac16f1/large/67038.jpg`,
         name: "Петя",
         surName: 'Иванов',
-        message: state.messageInTextAreaPost
+        message: action.payload.newMessagePost
       }
       return {
         ...state,
-        userPosts: [...state.userPosts, newPost],
-        messageInTextAreaPost: ''
+        userPosts: [...state.userPosts, newPost]
       }
     default:
       return state

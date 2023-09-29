@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
 import {Redirect} from 'react-router-dom'
-import LoginForm, {FormDataType} from "./LoginForm";
+import LoginForm, {LoginFormDataType} from "../forms/LoginForm";
 
 const Login = () => {
   const isAuth = useSelector<RootStateType, boolean>(state=> state.auth.isAuth)
@@ -11,7 +11,7 @@ const Login = () => {
     return <Redirect to={'/profile'}/>
   }
 
-  const onSubmitHandler = (formData:FormDataType) => {
+  const onSubmitHandler = (formData:LoginFormDataType) => {
     console.log(formData)
   }
   return (

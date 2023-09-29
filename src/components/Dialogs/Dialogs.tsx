@@ -1,15 +1,14 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import s from './Dialogs.module.css'
 import {Dialog, DialogType} from "./Dialog/Dialog";
 import {Message, MessageType} from "./Message/Message";
+import DialogMessageForm, {DialogMessageFormDataType} from "../forms/DialogMessageForm";
 
 
 type DialogsPropsType = {
   dialogsData: Array<DialogType>
   messagesData: Array<MessageType>
-  messageInTextAreaDialogs: string
-  changeMessageTextDialog: (value:string) => void
-  sendMessage: () => void
+  sendMessage: (dialogMessage: string) => void
 }
 
 const Dialogs: React.FC<DialogsPropsType> = (props) => {
@@ -22,12 +21,11 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
     return <Message key={messageEl.id} text={messageEl.text} id={messageEl.id}/>
   })
 
-  const onTextAreaChangeHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
-    props.changeMessageTextDialog(event.currentTarget.value)
+
+  const onSubmitHandler = (formData: DialogMessageFormDataType) => {
+    props.sendMessage(formData.dialogMessage)
   }
-  const onSendMessageClickHandler = () => {
-    props.sendMessage()
-  }
+
 
 
   return (
@@ -37,12 +35,7 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
       </div>
       <div className={s.messages}>
         {renderedMessages}
-        <div className={s.messageTextBody}>
-          <textarea value={props.messageInTextAreaDialogs}
-                    onChange={onTextAreaChangeHandler}>
-          </textarea>
-          <button style={{width: '40px', height: '20px'}} onClick={onSendMessageClickHandler}>send</button>
-        </div>
+        <DialogMessageForm onSubmit={onSubmitHandler}/>
       </div>
     </div>
   )
