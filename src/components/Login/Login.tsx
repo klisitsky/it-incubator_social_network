@@ -1,10 +1,16 @@
-import React from 'react';
-import {useSelector} from "react-redux";
+import React, {ComponentType} from 'react';
+import {connect, useSelector} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
 import {Redirect} from 'react-router-dom'
 import LoginForm, {LoginFormDataType} from "../forms/LoginForm";
+import {compose} from "redux";
+import {loginAPI} from "../../redux/thunks/thunksAuth";
 
-const Login = () => {
+type LoginPropsType = {
+  loginAPI: (email: string, password: string, rememberMe: boolean) => void
+}
+
+const Login: React.FC<LoginPropsType> = (props) => {
   const isAuth = useSelector<RootStateType, boolean>(state=> state.auth.isAuth)
 
   if (isAuth) {
@@ -12,8 +18,9 @@ const Login = () => {
   }
 
   const onSubmitHandler = (formData:LoginFormDataType) => {
-    console.log(formData)
+    props.loginAPI(formData.email, formData.password, formData.rememberMe)
   }
+
   return (
     <div>
       <h1>LOGIN</h1>
@@ -23,5 +30,13 @@ const Login = () => {
 };
 
 
+type DispatchPropsType = {
+  loginAPI: any
+}
 
-export default Login;
+
+export default compose<ComponentType>(
+  React.memo,
+  connect(null, {loginAPI} as DispatchPropsType),
+)(Login)
+

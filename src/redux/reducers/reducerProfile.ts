@@ -1,10 +1,10 @@
 import {PostType} from "../../components/Profile/UserPosts/Post/Post";
 import {v1} from "uuid";
 import {
-  ADD_MESSAGE_POST,
-  addPost,
-  SET_USER_INFO, SET_USER_STATUS, setUserInfo, setUserStatus,
-  TOGGLE_FETCHING, toggleFetching
+  ADD_MESSAGE_POST, SET_USER_INFO,
+  SET_USER_STATUS, TOGGLE_FETCHING,
+  addPost, setUserInfo,
+  setUserStatus, toggleFetching
 } from "../actions/actionsProfile";
 
 
@@ -101,7 +101,6 @@ const reducerProfile = (state:initialStateType = initialState, action:ProfileAct
       }
 
     case SET_USER_STATUS:
-      console.log(action.payload.title, 'action.payload.title')
       return {...state,
         userStatus: action.payload.title
       }

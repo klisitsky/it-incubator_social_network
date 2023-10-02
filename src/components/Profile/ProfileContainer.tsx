@@ -21,7 +21,9 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
   componentDidMount() {
     let userId = this.props.match.params.userId
-    if (!userId) userId = '29430'
+    if (!userId) {
+      userId = this.props.authorizedUserId ? this.props.authorizedUserId.toString() : ''
+    }
     this.props.getUserInfoAPI(userId)
     this.props.getUserStatusAPI(userId)
   }
@@ -44,13 +46,17 @@ type StatePropsType = {
   userPosts: Array<PostType>
   isFetching: boolean
   userStatus: string
+  authorizedUserId: number | null
+  isAuth: boolean
 }
 
 const mapStateToProps = (state: RootStateType): StatePropsType => ({
   userInfo: state.profilePage.userInfo,
   userPosts: state.profilePage.userPosts,
   isFetching: state.profilePage.isFetching,
-  userStatus: state.profilePage.userStatus
+  userStatus: state.profilePage.userStatus,
+  authorizedUserId: state.auth.data.id,
+  isAuth: state.auth.isAuth
 })
 
 export type DispatchPropsType = {

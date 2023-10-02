@@ -24,7 +24,5 @@ let store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
 export type RootStateType = ReturnType<typeof store.getState>
 
-// @ts-ignore
-window.store = store
 
 export default store

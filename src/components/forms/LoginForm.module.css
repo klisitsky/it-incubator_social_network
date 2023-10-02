@@ -1,0 +1,9 @@
+.errorField {
+  border: red 2px solid;
+}
+
+.summaryErrorForm {
+  padding: 15px;
+  color: red;
+  border: 2px solid red;
+}
