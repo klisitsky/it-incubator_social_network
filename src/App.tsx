@@ -10,11 +10,27 @@ import NavBarContainer from "./components/NavBar/NavBarContainer";
 import UsersSearchContainer from "./components/UsersSearch/UsersSearchContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import Login from "./components/Login/Login";
+import {connect} from "react-redux";
+import {RootStateType} from "./redux/redux-store";
+import Preloader from "./components/Preloader/Preloader";
+import {initializeApp} from "./redux/thunks/thunksApp";
 
 
+type AppPropsType = DispatchPropsType & StatePropsType
 
-export const App = () => {
-  return (
+export class App extends React.Component<AppPropsType> {
+
+  componentDidMount() {
+    this.props.initializeApp()
+  }
+
+  render() {
+
+    if (!this.props.authorized) {
+      return <Preloader/>
+    }
+
+    return (
       <div className="app-wrapper">
         <div className="container">
           <HeaderContainer/>
@@ -30,7 +46,20 @@ export const App = () => {
           </div>
         </div>
       </div>
-  );
+    );
+  }
 }
 
-export default App;
+export type DispatchPropsType = {
+  initializeApp: any
+}
+
+export type StatePropsType = {
+  authorized: boolean
+}
+
+export const mapStateToProps = (state: RootStateType): StatePropsType => ({
+  authorized: state.app.authorized
+})
+
+export default connect(mapStateToProps, {initializeApp} as DispatchPropsType)(App);

@@ -5,7 +5,7 @@ import {ThunkDispatch} from "redux-thunk";
 import {stopSubmit} from "redux-form";
 
 export const autorizationAPI = () => (dispatch: Dispatch) => {
-  authAPI.me()
+  return authAPI.me()
     .then(data => {
       if (data.resultCode === 0) {
         let {id, email, login} = data.data

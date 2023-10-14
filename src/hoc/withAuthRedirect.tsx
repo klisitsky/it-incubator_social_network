@@ -8,10 +8,9 @@ export type StatePropsType = {
   isAuth: boolean
 }
 
-const mapStateToProps = (state: RootStateType): StatePropsType => {
-  console.log(state.auth.isAuth)
-  return {isAuth: state.auth.isAuth}
-}
+const mapStateToProps = (state: RootStateType): StatePropsType => ({
+  isAuth: state.auth.isAuth
+})
 
 
 function WithAuthRedirect<T>(Component: ComponentType<T>) {

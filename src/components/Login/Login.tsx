@@ -1,7 +1,7 @@
 import React, {ComponentType} from 'react';
 import {connect, useSelector} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
-import {Redirect} from 'react-router-dom'
+import {Redirect, useHistory} from 'react-router-dom'
 import LoginForm, {LoginFormDataType} from "../forms/LoginForm";
 import {compose} from "redux";
 import {loginAPI} from "../../redux/thunks/thunksAuth";
@@ -14,7 +14,7 @@ const Login: React.FC<LoginPropsType> = (props) => {
   const isAuth = useSelector<RootStateType, boolean>(state=> state.auth.isAuth)
 
   if (isAuth) {
-    return <Redirect to={'/profile'}/>
+      return <Redirect to={'/profile'}/>
   }
 
   const onSubmitHandler = (formData:LoginFormDataType) => {
