@@ -10,6 +10,13 @@ import {addPost, setUserInfo, toggleFetching} from "../../redux/actions/actionsP
 import {getUserInfoAPI, getUserStatusAPI, updateUserStatusAPI} from "../../redux/thunks/thunksProfile";
 import withAuthRedirect from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {
+  getAuthorizedUserId, getIsAuth,
+  getIsFetching,
+  getUserInfo,
+  getUserPosts,
+  getUserStatus
+} from "../../redux/selectors/selectorsProfile";
 
 
 type Params = { userId: string }
@@ -51,12 +58,12 @@ type StatePropsType = {
 }
 
 const mapStateToProps = (state: RootStateType): StatePropsType => ({
-  userInfo: state.profilePage.userInfo,
-  userPosts: state.profilePage.userPosts,
-  isFetching: state.profilePage.isFetching,
-  userStatus: state.profilePage.userStatus,
-  authorizedUserId: state.auth.data.id,
-  isAuth: state.auth.isAuth
+  userInfo: getUserInfo(state),
+  userPosts: getUserPosts(state),
+  isFetching: getIsFetching(state),
+  userStatus: getUserStatus(state),
+  authorizedUserId: getAuthorizedUserId(state),
+  isAuth: getIsAuth(state)
 })
 
 export type DispatchPropsType = {

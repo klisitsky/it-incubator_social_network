@@ -1,7 +1,7 @@
 import React, {ComponentType} from 'react';
 import {connect, useSelector} from "react-redux";
 import {RootStateType} from "../../redux/redux-store";
-import {Redirect, useHistory} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 import LoginForm, {LoginFormDataType} from "../forms/LoginForm";
 import {compose} from "redux";
 import {loginAPI} from "../../redux/thunks/thunksAuth";
