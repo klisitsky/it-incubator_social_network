@@ -32,7 +32,7 @@ const mapStateToProps = (state: RootStateType):StatePropsType => {
 
 export type DispatchPropsType = {
   setAuthUserData: (id: number, email: string, login: string) => void
-  AuthStatusChanging: () => void
+  AuthStatusChanging: (isAuth: boolean) => void
   logoutAPI: any
 }
 

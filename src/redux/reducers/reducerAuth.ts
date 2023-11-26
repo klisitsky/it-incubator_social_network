@@ -9,7 +9,7 @@ import {
 export type AuthActionsType = ReturnType<typeof setAuthUserData>
   | ReturnType<typeof AuthStatusChanging>
 
-type initialStateType = {
+export type initialStateType = {
     data: {
         id: number | null
         email: string | null
@@ -37,7 +37,7 @@ const ReducerAuth = (state = initialState, action:AuthActionsType):initialStateT
         case AUTH_STATUS_CHANGING:
             return {
             ...state,
-            isAuth: !state.isAuth
+            isAuth: action.isAuth
         }
         default:
             return state

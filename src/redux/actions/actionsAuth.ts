@@ -13,6 +13,7 @@ export const setAuthUserData = (id: number, email: string, login: string) => ({
   }
 } as const)
 
-export const AuthStatusChanging = () => ({
+export const AuthStatusChanging = (isAuth: boolean) => ({
   type: AUTH_STATUS_CHANGING,
+  isAuth
 } as const)

@@ -10,7 +10,7 @@ export const autorizationAPI = () => (dispatch: Dispatch) => {
       if (data.resultCode === 0) {
         let {id, email, login} = data.data
         dispatch(setAuthUserData(id, email, login))
-        dispatch(AuthStatusChanging())
+        dispatch(AuthStatusChanging(true))
       }
     })
 }
@@ -33,7 +33,7 @@ export const logoutAPI = () => (dispatch: Dispatch) => {
   authAPI.logout()
     .then(data => {
       if (data.resultCode === 0) {
-        dispatch(AuthStatusChanging())
+        dispatch(AuthStatusChanging(true))
       }
     })
 }
