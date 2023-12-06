@@ -1,16 +1,16 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {RootStateType} from "../../redux/redux-store";
+import {RootStateType} from "redux/redux-store";
 import UsersSearch from "./UsersSearch";
 import Preloader from "../Preloader/Preloader";
-import {UserType} from "../../redux/reducers/reducerUsersSearch";
+import {UserType} from "redux/reducers/reducerUsersSearch";
 import {
   changeFollowedStatus, changeFollowingInProgress,
   setNewCurrentPage,
   setTotalUsersCount,
   setUsers, toggleFetching
-} from "../../redux/actions/actionsUserSearch";
-import {acceptFollowingAPI, getUsersAPI} from "../../redux/thunks/thunksUserSearch";
+} from "redux/actions/actionsUserSearch";
+import {acceptFollowing, fetchUsers} from "redux/thunks/thunksUserSearch";
 
 
 type UsersSearchContainerPropsType = StatePropsType & DispatchPropsType
@@ -18,11 +18,11 @@ type UsersSearchContainerPropsType = StatePropsType & DispatchPropsType
 class UsersSearchContainer extends React.Component<UsersSearchContainerPropsType> {
 
   componentDidMount() {
-    this.props.getUsersAPI(this.props.currentPage, this.props.countOfUsersOnPage)
+    this.props.fetchUsers(this.props.currentPage, this.props.pageSize)
   }
 
-  onChangeCurrentPage = (newPage:number) => {
-    this.props.getUsersAPI(newPage, this.props.countOfUsersOnPage)
+  onChangeCurrentPage = (newPage: number) => {
+    this.props.fetchUsers(newPage, this.props.pageSize)
   }
 
   render() {
@@ -30,12 +30,12 @@ class UsersSearchContainer extends React.Component<UsersSearchContainerPropsType
       {this.props.isFetching
         ? <Preloader/>
         : <UsersSearch users={this.props.users}
-        currentPage={this.props.currentPage}
-        totalUsersCount={this.props.totalUsersCount}
-        countOfUsersOnPage={this.props.countOfUsersOnPage}
-        onChangeCurrentPage={this.onChangeCurrentPage}
-        followingsInProgress={this.props.followingsInProgress}
-        acceptFollowingAPI={this.props.acceptFollowingAPI}/>}
+                       currentPage={this.props.currentPage}
+                       totalUsersCount={this.props.totalUsersCount}
+                       pageSize={this.props.pageSize}
+                       onChangeCurrentPage={this.onChangeCurrentPage}
+                       followingsInProgress={this.props.followingsInProgress}
+                       acceptFollowingAPI={this.props.acceptFollowing}/>}
     </>
   }
 }
@@ -45,28 +45,28 @@ export type StatePropsType = {
   users: Array<UserType>
   currentPage: number
   totalUsersCount: number
-  countOfUsersOnPage: number
+  pageSize: number
   isFetching: boolean
   followingsInProgress: Array<number>
 }
 
 export type DispatchPropsType = {
-  changeFollowedStatus: (userId: number) => void
+  changeFollowedStatus: (userId: number, isFollow: boolean) => void
   setUsers: (users: Array<UserType>) => void
   setTotalUsersCount: (TotalUsersCount: number) => void
   setNewCurrentPage: (newCurrentPage: number) => void
   toggleFetching: (isFetching: boolean) => void
   changeFollowingInProgress: (isContained: boolean, userId: number) => void
-  getUsersAPI: any // (currentPage:number, countOfUsersOnPage:number) => (dispatch:Dispatch) => void
-  acceptFollowingAPI: any
+  fetchUsers: any // (currentPage:number, countOfUsersOnPage:number) => (dispatch:Dispatch) => void
+  acceptFollowing: any
 }
 
-const mapStateToProps = (state: RootStateType):StatePropsType => {
+const mapStateToProps = (state: RootStateType): StatePropsType => {
   return {
     users: state.usersSearchPage.users,
     currentPage: state.usersSearchPage.currentPage,
     totalUsersCount: state.usersSearchPage.totalUsersCount,
-    countOfUsersOnPage: state.usersSearchPage.countOfUsersOnPage,
+    pageSize: state.usersSearchPage.pageSize,
     isFetching: state.usersSearchPage.isFetching,
     followingsInProgress: state.usersSearchPage.followingsInProgress
   }
@@ -80,6 +80,6 @@ export default React.memo(connect(mapStateToProps, {
   setNewCurrentPage,
   toggleFetching,
   changeFollowingInProgress,
-  getUsersAPI,
-  acceptFollowingAPI
-}as DispatchPropsType)(UsersSearchContainer));
+  fetchUsers,
+  acceptFollowing
+} as DispatchPropsType)(UsersSearchContainer));

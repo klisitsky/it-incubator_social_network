@@ -1,9 +1,9 @@
 import {UserInfoType} from "../reducers/reducerProfile";
 
-export const ADD_MESSAGE_POST = 'ADD_MESSAGE_POST'
-export const SET_USER_INFO = 'SET_USER_INFO'
-export const SET_USER_STATUS = 'SET_USER_STATUS'
-export const TOGGLE_FETCHING = 'TOGGLE_FETCHING'
+export const ADD_MESSAGE_POST = 'profile/ADD_MESSAGE_POST'
+export const SET_USER_INFO = 'profile/SET_USER_INFO'
+export const SET_USER_STATUS = 'profile/SET_USER_STATUS'
+export const TOGGLE_FETCHING = 'profile/TOGGLE_FETCHING'
 
 
 export const addPost = (newMessagePost: string) => ({

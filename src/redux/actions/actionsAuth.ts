@@ -1,5 +1,5 @@
 export const SET_USER_DATA = 'SET_USER_DATA'
-export const AUTH_STATUS_CHANGING = 'AUTH_STATUS_CHANGING'
+export const AUTH_STATUS_CHANGING = 'auth/AUTH_STATUS_CHANGING'
 
 
 export const setAuthUserData = (id: number, email: string, login: string) => ({

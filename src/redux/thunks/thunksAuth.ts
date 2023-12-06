@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../../api/api";
+import {authAPI} from "api/api";
 import {AuthStatusChanging, setAuthUserData} from "../actions/actionsAuth";
 import {ThunkDispatch} from "redux-thunk";
 import {stopSubmit} from "redux-form";
@@ -29,10 +29,11 @@ export const loginAPI = (email: string, password: string, rememberMe: boolean) =
     })
 }
 
-export const logoutAPI = () => (dispatch: Dispatch) => {
+export const logoutAPI = () => (dispatch: ThunkDispatch<any, any, any>) => {
   authAPI.logout()
     .then(data => {
       if (data.resultCode === 0) {
+        dispatch(autorizationAPI())
         dispatch(AuthStatusChanging(true))
       }
     })

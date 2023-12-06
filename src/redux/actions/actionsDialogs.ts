@@ -1,4 +1,4 @@
-export const SEND_DIALOG_MESSAGE = 'SEND_DIALOG_MESSAGE'
+export const SEND_DIALOG_MESSAGE = 'dialogs/SEND_DIALOG_MESSAGE'
 
 
 export const sendMessage = (dialogMessage: string) => ({

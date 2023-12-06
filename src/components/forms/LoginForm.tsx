@@ -2,7 +2,7 @@ import React from 'react';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import s from "./LoginForm.module.css"
 import {WrappedFieldProps} from 'redux-form';
-import {required} from "../../validators/validators";
+import {required} from "validators/validators";
 
 export type LoginFormDataType = {
   email: string
@@ -27,7 +27,7 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormDataType>> = (props) => {
       <div>
         <Field name='password'
                placeholder='password'
-               type='text'
+               type='password'
                element={'input'}
                component={FormControl}
                validate={[required]}
