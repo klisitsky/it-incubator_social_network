@@ -1,13 +1,13 @@
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {RootStateType} from "../../redux/redux-store";
-import {UserInfoType} from "../../redux/reducers/reducerProfile";
+import {RootStateType} from "redux/redux-store";
+import {UserInfoType} from "redux/reducers/reducerProfile";
 import {PostType} from "./UserPosts/Post/Post";
 import React, {ComponentType} from "react";
 import Preloader from "../Preloader/Preloader";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {addPost, setUserInfo, toggleFetching} from "../../redux/actions/actionsProfile";
-import {getUserInfoAPI, getUserStatusAPI, updateUserStatusAPI} from "../../redux/thunks/thunksProfile";
+import {addPost, setUserInfo, toggleFetching} from "redux/actions/actionsProfile";
+import {getUserInfoAPI, getUserStatusAPI, setUserPhotoAPI, updateUserStatusAPI} from "redux/thunks/thunksProfile";
 import withAuthRedirect from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {
@@ -16,7 +16,7 @@ import {
   getUserInfo,
   getUserPosts,
   getUserStatus
-} from "../../redux/selectors/selectorsProfile";
+} from "redux/selectors/selectorsProfile";
 
 
 type Params = { userId: string }
@@ -26,13 +26,23 @@ export type ProfileContainerPropsType = StatePropsType & DispatchPropsType & Rou
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
-  componentDidMount() {
+  refreshProfile() {
     let userId = this.props.match.params.userId
     if (!userId) {
       userId = this.props.authorizedUserId ? this.props.authorizedUserId.toString() : ''
     }
     this.props.getUserInfoAPI(userId)
     this.props.getUserStatusAPI(userId)
+  }
+
+  componentDidMount() {
+    this.refreshProfile()
+  }
+
+  componentDidUpdate(prevProps:any, prevState:any) {
+    if (prevProps.match.params.userId !== this.props.match.params.userId) {
+      this.refreshProfile()
+    }
   }
 
   render() {
@@ -73,6 +83,7 @@ export type DispatchPropsType = {
   getUserInfoAPI: any
   getUserStatusAPI: any
   updateUserStatusAPI: any
+  setUserPhotoAPI: any
 }
 
 export default compose<ComponentType>(
@@ -83,7 +94,8 @@ export default compose<ComponentType>(
     toggleFetching,
     getUserInfoAPI,
     getUserStatusAPI,
-    updateUserStatusAPI
+    updateUserStatusAPI,
+    setUserPhotoAPI
   } as DispatchPropsType),
   withRouter,
   withAuthRedirect,

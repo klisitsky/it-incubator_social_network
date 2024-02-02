@@ -1,18 +1,19 @@
-import {PostType} from "../../components/Profile/UserPosts/Post/Post";
+import {PostType} from "components/Profile/UserPosts/Post/Post";
 import {v1} from "uuid";
 import {
   ADD_MESSAGE_POST, SET_USER_INFO,
   SET_USER_STATUS, TOGGLE_FETCHING,
   addPost, setUserInfo,
-  setUserStatus, toggleFetching
+  setUserStatus, toggleFetching, SET_USER_PHOTO, setUserPhotoSuccess
 } from "../actions/actionsProfile";
 
 
-
-export type ProfileActionsTypes = ReturnType<typeof addPost>
+export type ProfileActionsTypes =
+  | ReturnType<typeof addPost>
   | ReturnType<typeof setUserInfo>
   | ReturnType<typeof toggleFetching>
   | ReturnType<typeof setUserStatus>
+  | ReturnType<typeof setUserPhotoSuccess>
 
 export type UserInfoType = {
   userId: number
@@ -44,29 +45,29 @@ type initialStateType = {
 }
 
 const initialState: initialStateType = {
-    userInfo: {
-      userId: 29430,
-      lookingForAJob: false,
-      lookingForAJobDescription: '',
-      fullName: '',
-      aboutMe: '',
-      contacts: {
-        github: '',
-        vk: '',
-        facebook: '',
-        instagram: '',
-        twitter: '',
-        website: '',
-        youtube: '',
-        mainLink: ''
-      },
-      photos: {
-        small: '',
-        large: ''
-      }
+  userInfo: {
+    userId: 29430,
+    lookingForAJob: false,
+    lookingForAJobDescription: '',
+    fullName: '',
+    aboutMe: '',
+    contacts: {
+      github: '',
+      vk: '',
+      facebook: '',
+      instagram: '',
+      twitter: '',
+      website: '',
+      youtube: '',
+      mainLink: ''
     },
-    isFetching: false,
-    userPosts: [
+    photos: {
+      small: '',
+      large: ''
+    }
+  },
+  isFetching: false,
+  userPosts: [
     {
       id: v1(),
       photoUrl: `https://cpad.ask.fm/a4e/d9461/7d98/4b6a/b9c6/f598b6ac16f1/large/67038.jpg`,
@@ -89,24 +90,27 @@ const initialState: initialStateType = {
       message: 'Только сидел и писал бы эти посты'
     }
   ],
-    userStatus: ''
+  userStatus: ''
 }
 
 
-const reducerProfile = (state:initialStateType = initialState, action:ProfileActionsTypes): initialStateType => {
+const reducerProfile = (state: initialStateType = initialState, action: ProfileActionsTypes): initialStateType => {
   switch (action.type) {
     case SET_USER_INFO:
-      return {...state,
+      return {
+        ...state,
         userInfo: action.payload.userInfo
       }
 
     case SET_USER_STATUS:
-      return {...state,
+      return {
+        ...state,
         userStatus: action.payload.title
       }
 
     case TOGGLE_FETCHING:
-      return {...state,
+      return {
+        ...state,
         isFetching: action.payload.isFetching
       }
 
@@ -122,11 +126,23 @@ const reducerProfile = (state:initialStateType = initialState, action:ProfileAct
         ...state,
         userPosts: [...state.userPosts, newPost]
       }
+    case SET_USER_PHOTO:
+      return {
+        ...state,
+        userInfo:
+          {
+          ...state.userInfo,
+          photos:
+            {
+              ...state.userInfo.photos,
+              large: action.payload.newPhotoUrl
+            }
+        }
+      }
     default:
       return state
   }
 }
-
 
 
 export default reducerProfile

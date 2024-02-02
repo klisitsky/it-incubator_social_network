@@ -4,6 +4,9 @@ export const ADD_MESSAGE_POST = 'profile/ADD_MESSAGE_POST'
 export const SET_USER_INFO = 'profile/SET_USER_INFO'
 export const SET_USER_STATUS = 'profile/SET_USER_STATUS'
 export const TOGGLE_FETCHING = 'profile/TOGGLE_FETCHING'
+export const SET_USER_PHOTO = 'profile/SET_USER_PHOTO'
+
+
 
 
 export const addPost = (newMessagePost: string) => ({
@@ -34,3 +37,11 @@ export const setUserStatus = (title: string) => ({
   }
 } as const)
 
+
+
+export const setUserPhotoSuccess = (newPhotoUrl: string) => ({
+  type: SET_USER_PHOTO,
+  payload: {
+    newPhotoUrl
+  }
+} as const)

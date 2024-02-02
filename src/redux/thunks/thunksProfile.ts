@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
-import {profileAPI} from "../../api/api";
-import {setUserInfo, setUserStatus, toggleFetching} from "../actions/actionsProfile";
+import {profileAPI} from "api/api";
+import {setUserInfo, setUserPhotoSuccess, setUserStatus, toggleFetching} from "../actions/actionsProfile";
 
 
 export const getUserInfoAPI = (userId: string) => (dispatch: Dispatch) => {
@@ -25,5 +25,11 @@ export const updateUserStatusAPI = (status: string) => (dispatch: Dispatch) => {
   })
 }
 
-
+export const setUserPhotoAPI = (newPhoto: any) => (dispatch: Dispatch) => {
+  profileAPI.setUserPhoto(newPhoto).then(data => {
+    if (data.resultCode === 0) {
+      dispatch(setUserPhotoSuccess(data.data.photos.large))
+    }
+  })
+}
 

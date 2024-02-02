@@ -1,22 +1,37 @@
 import s from "./UserInfo.module.css";
-import React from "react";
-import {UserInfoType} from "../../../redux/reducers/reducerProfile";
+import React, {ChangeEvent} from "react";
+import {UserInfoType} from "redux/reducers/reducerProfile";
 import {UserStatus} from "./UserStatus/UserStatus";
 
 type UserInfoPropsType = {
+  isOwner: boolean
   userInfo: UserInfoType
   setUserInfo: (data: UserInfoType) => void
   userStatus: string
   updateUserStatusAPI: () => void
+  savePhoto: (newPhoto: any) => void
 }
 
 export const UserInfo = (props: UserInfoPropsType) => {
 
   const {fullName, contacts, lookingForAJob, photos} = props.userInfo
 
+
+  const savePhotoHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
+      props.savePhoto(e.target.files[0])
+    }
+  }
+
   return (<div className={s.ProfileInfoBoby}>
       <div className={s.small}>
         <img src={photos.large} alt="avatar"/>
+        {props.isOwner || <div className={s.customFileUploadContainer}>
+          <label htmlFor="fileInput" className={s.customFileUpload}>
+            New Photo
+          </label>
+          <input className={s.inputFileUpload} type="file" id="fileInput" onChange={savePhotoHandler}/>
+        </div>}
       </div>
       <div className={s.name}>{fullName}</div>
 
