@@ -1,9 +1,9 @@
 import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
-import {RootStateType} from "../../redux/redux-store";
-import {AuthStatusChanging, setAuthUserData} from "../../redux/actions/actionsAuth";
-import {logoutAPI} from "../../redux/thunks/thunksAuth";
+import {RootStateType} from "redux/redux-store";
+import {authStatusChanging, setAuthUserData} from "redux/actions/actionsAuth";
+import {logoutAPI} from "redux/thunks/thunksAuth";
 
 
 type HeaderComponentPropsType = StatePropsType & DispatchPropsType
@@ -36,6 +36,6 @@ export type DispatchPropsType = {
   logoutAPI: any
 }
 
-const HeaderContainer = connect(mapStateToProps, {setAuthUserData, AuthStatusChanging, logoutAPI} as DispatchPropsType)(HeaderAPI)
+const HeaderContainer = connect(mapStateToProps, {setAuthUserData, AuthStatusChanging: authStatusChanging, logoutAPI} as DispatchPropsType)(HeaderAPI)
 
 export default React.memo(HeaderContainer)

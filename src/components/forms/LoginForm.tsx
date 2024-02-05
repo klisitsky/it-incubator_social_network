@@ -1,81 +1,39 @@
 import React from 'react';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {InjectedFormProps, reduxForm} from "redux-form";
 import s from "./LoginForm.module.css"
-import {WrappedFieldProps} from 'redux-form';
 import {required} from "validators/validators";
+import {FormControl} from "components/FormControl/FormControl";
+import createField from "components/CreateField/CreateField";
+import {Captcha} from 'components/Captcha/Captcha';
 
 export type LoginFormDataType = {
   email: string
   password: string
   rememberMe: boolean
+  captcha: string
 }
 
-const LoginForm: React.FC<InjectedFormProps<LoginFormDataType>> = (props) => {
-
-
-  return (
-    <form onSubmit={props.handleSubmit}>
-      <div>
-        <Field name='email'
-               placeholder='email'
-               type='email'
-               element={'input'}
-               component={FormControl}
-               validate={[required]}
-        />
-      </div>
-      <div>
-        <Field name='password'
-               placeholder='password'
-               type='password'
-               element={'input'}
-               component={FormControl}
-               validate={[required]}
-        />
-      </div>
-      <div>
-        <Field id="rememberMe"
-               name='rememberMe'
-               type='checkbox'
-               component={'input'}
-        />
-        <label htmlFor="rememberMe">remember Me</label>
-      </div>
-      {props.error && <div className={s.summaryErrorForm}>{props.error}</div>}
-      <button>Log in</button>
-
-    </form>);
+type LoginFormProps = InjectedFormProps<LoginFormDataType> & {
+  captchaUrl?: string | null;
 };
 
-type RenderFieldPropsType = WrappedFieldProps & {
-  placeholder: string
-  type: string
-  element: string
-}
+const LoginForm: React.FC<LoginFormProps> = (props) => {
+  return (
+    <form onSubmit={props.handleSubmit}>
+      {createField('email','email', 'text', 'input', FormControl, [required])}
+      {createField('password','password', 'password', 'input', FormControl, [required])}
+      {createField('rememberMe','rememberMe', 'checkbox', 'input', FormControl, undefined, 'remember Me')}
+      {!props.captchaUrl || <Captcha captchaUrl={props.captchaUrl}/>}
+      {props.error && <div className={s.summaryErrorForm}>{props.error}</div>}
+      <button>Log in</button>
+    </form>
+  );
+};
 
-
-const FormControl: React.FC<RenderFieldPropsType> = ({
-                                                       input,
-                                                       meta: {touched, error, warning},
-                                                       placeholder,
-                                                       type,
-                                                       element
-                                                     }) => {
-
-  const Element = React.createElement(element, {...input, placeholder, type});
-
-  return (<div>
-    {Element}
-    {touched &&
-      ((error && <span>{error}</span>) ||
-        (warning && <span>{warning}</span>))}
-  </div>)
-
-}
-
-
-export default reduxForm<LoginFormDataType>({
+const LoginReduxForm = reduxForm<LoginFormDataType>({
   form: 'login'
 })(LoginForm);
+
+export default LoginReduxForm
 
 

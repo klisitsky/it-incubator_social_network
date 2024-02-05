@@ -1,5 +1,5 @@
 import ReducerAuth, { initialStateType } from "./reducerAuth"
-import {AuthStatusChanging, setAuthUserData} from "../actions/actionsAuth";
+import {authStatusChanging, setAuthUserData} from "../actions/actionsAuth";
 
 let startState: initialStateType
 beforeEach(() => {
@@ -9,7 +9,8 @@ beforeEach(() => {
       email: null,
       login: null,
     },
-    isAuth: false
+    isAuth: false,
+    captchaUrl: null
   }
 
 })
@@ -26,7 +27,7 @@ test('user data should be added', () => {
 
 test('isAuth status should be changed', () => {
 
-  const endState = ReducerAuth(startState, AuthStatusChanging(true))
+  const endState = ReducerAuth(startState, authStatusChanging(true))
 
   expect(endState.isAuth).toBe(true)
 })

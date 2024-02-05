@@ -1,13 +1,14 @@
 import {
     AUTH_STATUS_CHANGING,
-    AuthStatusChanging,
+    authStatusChanging, GET_CAPTCHA_URL_SUCCESS, getCaptchaUrlSuccess,
     SET_USER_DATA,
     setAuthUserData
 } from "../actions/actionsAuth";
 
 
 export type AuthActionsType = ReturnType<typeof setAuthUserData>
-  | ReturnType<typeof AuthStatusChanging>
+  | ReturnType<typeof authStatusChanging>
+  | ReturnType<typeof getCaptchaUrlSuccess>
 
 export type initialStateType = {
     data: {
@@ -15,7 +16,8 @@ export type initialStateType = {
         email: string | null
         login: string | null
     },
-    isAuth: boolean
+    isAuth: boolean,
+    captchaUrl: string | null
 }
 
 const initialState: initialStateType = {
@@ -24,7 +26,8 @@ const initialState: initialStateType = {
         email: null,
         login: null,
     },
-    isAuth: false
+    isAuth: false,
+    captchaUrl: null
 }
 
 const ReducerAuth = (state = initialState, action:AuthActionsType):initialStateType => {
@@ -39,6 +42,11 @@ const ReducerAuth = (state = initialState, action:AuthActionsType):initialStateT
             ...state,
             isAuth: action.isAuth
         }
+        case GET_CAPTCHA_URL_SUCCESS:
+            return {
+                ...state,
+                captchaUrl: action.captchaUrl
+            }
         default:
             return state
     }

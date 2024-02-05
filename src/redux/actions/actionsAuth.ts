@@ -1,5 +1,6 @@
 export const SET_USER_DATA = 'SET_USER_DATA'
 export const AUTH_STATUS_CHANGING = 'auth/AUTH_STATUS_CHANGING'
+export const GET_CAPTCHA_URL_SUCCESS = 'auth/GET_CAPTCHA_URL_SUCCESS'
 
 
 export const setAuthUserData = (id: number, email: string, login: string) => ({
@@ -13,7 +14,12 @@ export const setAuthUserData = (id: number, email: string, login: string) => ({
   }
 } as const)
 
-export const AuthStatusChanging = (isAuth: boolean) => ({
+export const authStatusChanging = (isAuth: boolean) => ({
   type: AUTH_STATUS_CHANGING,
   isAuth
+} as const)
+
+export const getCaptchaUrlSuccess = (captchaUrl: string) => ({
+  type: GET_CAPTCHA_URL_SUCCESS,
+  captchaUrl
 } as const)
